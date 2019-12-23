@@ -18,19 +18,25 @@ public class RootController {
  	 * @author 김령환
  	 * @brief Service들을 모두 가져와서 객체인스턴스를 생성한다.
  	 */
-	UserService userService = UserServiceImpl.getInstance();
+	
 	
 	public static void main(String[] args) {
 		RootController controller = new RootController();
 		
-		controller.userinfo();
+		System.out.println("고객님 환영합니다. 보고싶은 영화를 선택해주세요.");
+		
+		
+		// 영화 선택 -> 시간 선택 -> 좌석 선택 -> 결제창 -> 회원정보 확인 -> 영수증 출력
+		
+		
 	}
 
-	
-	private void userinfo() {
-		Scanner scan = new Scanner(System.in);
-		System.out.println("적립하시겠습니까?");
-		
-		userService.getUserInfo(scan.nextLine());
-	}
 }
+
+
+
+
+
+
+
+
