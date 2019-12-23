@@ -43,11 +43,11 @@ public class UserServiceImpl implements UserService {
 				getUserInfo();
 			} else {
 				// 비회원 결제메소드를 실행하는 구문 추가
+				System.out.println("비회원 결제");
 			}
 		} else {
-			System.out.println(user.getUserId());
-			System.out.println("회원결제로 넘어간다.");
 			// 회원 결제메소드를 실행하는 구문 추가
+			System.out.println("회원결제로 넘어간다.");
 		}
 	}
 	
