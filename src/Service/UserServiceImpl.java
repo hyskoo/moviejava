@@ -20,5 +20,10 @@ public class UserServiceImpl implements UserService {
  	 * @brief DaoImpl을 호출하여 값, 객채들을 반환 받는다.
  	 */
 	UserDao userDao = UserDaoImpl.getInstance();
+
+	@Override
+	public void getUserInfo() {
+		
+	}
 	
 }

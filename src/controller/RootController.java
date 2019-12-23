@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Scanner;
+
 import Service.UserService;
 import Service.UserServiceImpl;
 
@@ -19,6 +21,16 @@ public class RootController {
 	UserService userService = UserServiceImpl.getInstance();
 	
 	public static void main(String[] args) {
+		RootController controller = new RootController();
 		
+		controller.userinfo();
+	}
+
+	
+	private void userinfo() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("적립하시겠습니까?");
+		
+		userService.getUserInfo(scan.nextLine());
 	}
 }
