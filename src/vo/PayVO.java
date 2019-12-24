@@ -8,6 +8,9 @@ public class PayVO {
 	private Date payDate;	// 결제 일자
 	private String payInfo;	// 결제 정보
 	
+	//외래키
+	private String userId;		// 회원 아이디
+	private int mScheduleId;	// 영화 시간 아이디
 	
 	public int getPayId() {
 		return payId;
@@ -32,6 +35,18 @@ public class PayVO {
 	}
 	public void setPayInfo(String payInfo) {
 		this.payInfo = payInfo;
+	}
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	public int getmScheduleId() {
+		return mScheduleId;
+	}
+	public void setmScheduleId(int mScheduleId) {
+		this.mScheduleId = mScheduleId;
 	}
 
 }

@@ -2,6 +2,9 @@ package Service;
 
 public interface UserService {
 
-	void getUserInfo();
+	void join();
+
+	void login();
+
 
 }
