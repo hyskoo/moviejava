@@ -2,13 +2,17 @@ package controller;
 
 import java.util.Scanner;
 
+import service.AdminService;
+import service.AdminServiceImpl;
+import service.MovieScheduleService;
+import service.MovieScheduleServiceImpl;
+import service.MovieService;
+import service.MovieServiceImpl;
+import service.ScreenService;
+import service.ScreenServiceImpl;
+import service.UserService;
+import service.UserServiceImpl;
 import data.Session;
-import Service.AdminService;
-import Service.AdminServiceImpl;
-import Service.MovieService;
-import Service.MovieServiceImpl;
-import Service.UserService;
-import Service.UserServiceImpl;
 
 public class RootController {
 	
@@ -25,12 +29,18 @@ public class RootController {
  	 */
 	UserService userService = UserServiceImpl.getInstance();
 	MovieService movieService = MovieServiceImpl.getInstance();
+	ScreenService screenService = ScreenServiceImpl.getInstance();
+	MovieScheduleService movieSchService = MovieScheduleServiceImpl.getInstance();
 	public static void main(String[] args) {
 		// 회원정보 확인 ->  영화 선택 -> 시간 선택 -> 좌석 선택 -> 결제창 -> 영수증 출력
+		RootController control = new RootController();
+		ScreenService screenService = ScreenServiceImpl.getInstance();
+		control.start();			// 1. 첫시작 로그인화면
+		control.movieInfo();		// 2. 영화 선택 페이지 보여주기
+		control.selectMoiveTime();	// 3. 영화의 시간을 선택한다.
 		
-		new RootController().start();
+		
 	}
-
 
 	void start(){
 		int menu;
@@ -41,33 +51,25 @@ public class RootController {
 			if (Session.loginUser == null){
 				System.out.println("1.로그인 \t 2. 회원가입 \t ");
 			} else if (Session.loginUser != null) {
-				
-				mainPage();		//영화 선택 페이지 보여주기
-				
+				break;
 			} else if (Session.loginUser.getUserLevel() >= 90) {
 				System.out.println("관리자 기능입니다.");
 			} 
-			
-	
 			menu = Integer.parseInt(scan.nextLine());
 			switch (menu) {
 			case 1: //로그인 페이지
 				System.out.println("로그인 페이지 입니다.");
 				userService.login();
-				break;
+				break;				// swith의 break로 do{ }while 반복문을 break하는것이 아니다.
 			case 2: //회원가입 페이지
 				System.out.println("회원가입 페이지 입니다. 화면에 나오는 순서대로 입력해주세요.");
 				userService.join();
 				break;
-			case 0: // 프로그램종료
-				System.out.println("프로그램이 종료되었습니다.");
-				System.exit(0);
-				break;
 			}
-		}while(menu != 0);
+		}while(true);
 	}
 	
-	private void mainPage() {
+	private void movieInfo() {
 		do {
 			System.out.println("☆★☆★☆★☆★영화 목록☆★☆★☆★☆★");
 			System.out.println("☆★☆★☆★영화를 선택해 주세요☆★☆★");
@@ -76,9 +78,23 @@ public class RootController {
 			Scanner s = new Scanner(System.in);
 			int movieNo = Integer.parseInt(s.nextLine());
 			movieService.getMovieInfo(movieNo);
+			System.out.println("-----------------------------");
+			System.out.println("재시작");
+			System.out.println("-----------------------------");
+			
+			System.out.println("이 영화를 선택하시겠습니까? (Y/N)");
+			if (s.nextLine().equalsIgnoreCase("Y")) {
+				System.out.println("영화선택");
+				break;
+			}		
 		} while(true);
+	}
+	
+	private void selectMoiveTime() {
+		// TODO Auto-generated method stub
 		
 	}
+
 }
 
 

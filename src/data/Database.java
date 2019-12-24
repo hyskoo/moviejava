@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import vo.MovieInfoVO;
+import vo.MovieScheduleVO;
 import vo.ScreenVO;
 import vo.UserVO;
 
@@ -182,122 +183,7 @@ public class Database {
 		}
 		movie5.setMovieRunningTime(152);
 		mv_list.add(movie5);
-
-		//6. 쥬만지: 넥스트 레벨
-		MovieInfoVO movie6 = new MovieInfoVO();
-		movie6.setMovieId(6);
-		movie6.setMovieName("쥬만지: 넥스트 레벨");
-		movie6.setMovieInfo("진화된 게임, 주어진 목숨은 3개! 사라진 친구를 찾아 반드시 탈출하라!\n"
-				+ "쥬만지 게임으로부터 가까스로 탈출해 평화로운 일상을 보내던 스펜서와 친구들.\n"
-				+ " 어느 날, 스펜서는 망가진 쥬만지 게임 속으로 사라지고\n"
-				+ " 마사와 베서니, 프리지 역시 그를 찾기 위해 다시 들어가기로 결심한다.\n"
-				+ " 그리고 우연히 게임에 합류하게 된 새로운 멤버, 스펜서의 할아버지 에디와 마일로.\n"
-				+ " 위험천만한 게임 속으로 들어가게 된 이들은 정글부터 설산, 사막까지\n"
-				+ " 한층 진화된 예측 불가능한 게임 속에서 현실 세계로 돌아오기 위해 목숨을 건 미션을 시작하는데......");
-		movie6.setMovieLimitAge(12);
-		try {
-			movie6.setMovieOpenday(dateform.parse("2019-12-11"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		try {
-			movie6.setMovieCloseday(dateform.parse("2019-01-11"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		movie6.setMovieRunningTime(122);
-		mv_list.add(movie6);
-
-		//7. 나이브스 아웃
-		MovieInfoVO movie7 = new MovieInfoVO();
-		movie7.setMovieId(7);
-		movie7.setMovieName("나이브스 아웃");
-		movie7.setMovieInfo("베스트셀러 미스터리 작가가 85세 생일에 숨진 채 발견된다.\n"
-				+ "그의 죽음의 원인을 파헤치기 위해 경찰과 함께 탐정 브누아 블랑이 파견 되는데…");
-		movie7.setMovieLimitAge(12);
-		try {
-			movie7.setMovieOpenday(dateform.parse("2019-12-04"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		try {
-			movie7.setMovieCloseday(dateform.parse("2019-01-04"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		movie7.setMovieRunningTime(130);
-		mv_list.add(movie7);
-
-		//8. 미안해요, 리키
-		MovieInfoVO movie8 = new MovieInfoVO();
-		movie8.setMovieId(8);
-		movie8.setMovieName("미안해요, 리키");
-		movie8.setMovieInfo("넉넉하지는 않지만 누구보다 행복한 가장 리키,\n"
-				+ "안정적인 생활을 꿈꾸며 택배 회사에 취직하지만\n"
-				+ "생각과는 다른 일상이 전개되고, 화목했던 가족은 뜻밖의 난관에 부딪히는데..\n"
-				+ "성실하게 행복을 찾고 싶었던 리키의, 우리의 이야기가 찾아온다.");
-		movie8.setMovieLimitAge(12);
-		try {
-			movie8.setMovieOpenday(dateform.parse("2019-12-19"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		try {
-			movie8.setMovieCloseday(dateform.parse("2019-01-19"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		movie8.setMovieRunningTime(101);
-		mv_list.add(movie8);
-
-		//9. 프란치스코 교황: 맨 오브 히스 워드
-		MovieInfoVO movie9 = new MovieInfoVO();
-		movie9.setMovieId(9);
-		movie9.setMovieName("프란치스코 교황: 맨 오브 히스 워드");
-		movie9.setMovieInfo("화려한 바티칸궁을 마다하고 소박한 방 한 칸을 선택한 사람\n"
-				+ "고급 리무진 대신 소형 승용차에 올라 손인사를 전하는 사람\n"
-				+ "축구에 열광하고 탱고를 즐기며 유머를 사랑하는 사람\n"
-				+ "이웃의 작은 고민을 제 일처럼 마음 쓰고 공감하는 사람\n"
-				+ "그의 이름은 프란치스코, 온 세계의 친구 교황입니다.\n"
-				+ "교황이 함께한 모두의 삶 속으로 한 걸음 더 가까이!\n"
-				+ "세상에서 가장 따뜻한 공감의 여정이 시작됩니다");
-		movie9.setMovieLimitAge(0);
-		try {
-			movie9.setMovieOpenday(dateform.parse("2019-11-21"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		try {
-			movie9.setMovieCloseday(dateform.parse("2019-01-21"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		movie9.setMovieRunningTime(96);
-		mv_list.add(movie9);
-
-		//10. 파비안느에 관한 진실
-		MovieInfoVO movie10 = new MovieInfoVO();
-		movie10.setMovieId(10);
-		movie10.setMovieName("파비안느에 관한 진실");
-		movie10.setMovieInfo("자신의 회고록 발간을 앞둔 전설적인 여배우 파비안느(까뜨린느 드뇌브).\n"
-				+ "이를 축하하기 위해 딸 뤼미르(줄리엣 비노쉬)가\n"
-				+ "남편 행크(에단 호크), 어린 딸 샤를로트와 함께 오랜만에 파비안느의 집을 찾는다.\n"
-				+ "반가운 재회도 잠시, 엄마의 회고록을 읽은 뤼미르는\n"
-				+ "책 속 내용이 거짓으로 가득 찼음을 알게 되는데…\n"
-				+ "“엄마, 이 책에는 진실이라고는 없네요”");
-		movie10.setMovieLimitAge(12);
-		try {
-			movie10.setMovieOpenday(dateform.parse("2019-12-05"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		try {
-			movie10.setMovieCloseday(dateform.parse("2019-01-05"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		movie10.setMovieRunningTime(107);
-		mv_list.add(movie10);
+		
 	}
 	
 	/**
@@ -322,25 +208,108 @@ public class Database {
 		screen3.setScreenName("제 3상영관"); //스크린 영화관 이름(3상영관)
 		screenlist.add(screen3);
 		
-		ScreenVO screen4 = new ScreenVO();
-		screen4.setScreenId(4);  
-		screen4.setScreenName("제 4상영관"); //스크린 영화관 이름(4상영관)
-		screenlist.add(screen4);
-		
-		ScreenVO screen5 = new ScreenVO();
-		screen5.setScreenId(5);  
-		screen5.setScreenName("제 5상영관"); //스크린 영화관 이름(5상영관)
-		screenlist.add(screen5);
-		
-		ScreenVO screen6 = new ScreenVO();
-		screen6.setScreenId(6);  
-		screen6.setScreenName("제 6상영관"); //스크린 영화관 이름(6상영관)
-		screenlist.add(screen6);
-		
-		ScreenVO screen7 = new ScreenVO();
-		screen7.setScreenId(7);  
-		screen7.setScreenName("제 7상영관"); //스크린 영화관 이름(7상영관)
-		screenlist.add(screen7);
-		
 	}
+	
+	/**
+ 	 * @author 김령환
+ 	 * @brief 
+ 	 */
+	public ArrayList<MovieScheduleVO> mSchlist = new ArrayList<>();
+	
+	{
+		MovieScheduleVO msd1 = new MovieScheduleVO();
+		msd1.setmScheduleId(1);
+		msd1.setmScheduleTime("9:00");
+		msd1.setMovieId(1);
+		msd1.setScreenId(1);
+		
+		MovieScheduleVO msd2 = new MovieScheduleVO();
+		msd2.setmScheduleId(2);
+		msd2.setmScheduleTime("12:00");
+		msd2.setMovieId(2);
+		msd2.setScreenId(1);
+		
+		MovieScheduleVO msd3 = new MovieScheduleVO();
+		msd3.setmScheduleId(3);
+		msd3.setmScheduleTime("15:00");
+		msd3.setMovieId(3);
+		msd3.setScreenId(1);
+		
+		MovieScheduleVO msd4 = new MovieScheduleVO();
+		msd4.setmScheduleId(4);
+		msd4.setmScheduleTime("18:00");
+		msd4.setMovieId(4);
+		msd4.setScreenId(1);
+		
+		MovieScheduleVO msd5 = new MovieScheduleVO();
+		msd5.setmScheduleId(5);
+		msd5.setmScheduleTime("21:00");
+		msd5.setMovieId(5);
+		msd5.setScreenId(1);
+		
+		MovieScheduleVO msd6 = new MovieScheduleVO();
+		msd6.setmScheduleId(6);
+		msd6.setmScheduleTime("09:00");
+		msd6.setMovieId(1);
+		msd6.setScreenId(2);
+		
+		MovieScheduleVO msd7 = new MovieScheduleVO();
+		msd7.setmScheduleId(7);
+		msd7.setmScheduleTime("12:00");
+		msd7.setMovieId(2);
+		msd7.setScreenId(2);
+		
+		MovieScheduleVO msd8 = new MovieScheduleVO();
+		msd8.setmScheduleId(8);
+		msd8.setmScheduleTime("15:00");
+		msd8.setMovieId(3);
+		msd8.setScreenId(2);
+		
+		MovieScheduleVO msd9 = new MovieScheduleVO();
+		msd9.setmScheduleId(9);
+		msd9.setmScheduleTime("18:00");
+		msd9.setMovieId(4);
+		msd9.setScreenId(2);
+		
+		MovieScheduleVO msd10 = new MovieScheduleVO();
+		msd10.setmScheduleId(10);
+		msd10.setmScheduleTime("21:00");
+		msd10.setMovieId(5);
+		msd10.setScreenId(2);
+		
+		MovieScheduleVO msd11 = new MovieScheduleVO();
+		msd11.setmScheduleId(11);
+		msd11.setmScheduleTime("09:00");
+		msd11.setMovieId(1);
+		msd11.setScreenId(3);
+		
+		MovieScheduleVO msd12 = new MovieScheduleVO();
+		msd12.setmScheduleId(12);
+		msd12.setmScheduleTime("12:00");
+		msd12.setMovieId(2);
+		msd12.setScreenId(3);
+		
+		MovieScheduleVO msd13 = new MovieScheduleVO();
+		msd13.setmScheduleId(13);
+		msd13.setmScheduleTime("15:00");
+		msd13.setMovieId(3);
+		msd13.setScreenId(3);
+		
+		MovieScheduleVO msd14 = new MovieScheduleVO();
+		msd14.setmScheduleId(14);
+		msd14.setmScheduleTime("18:00");
+		msd14.setMovieId(4);
+		msd14.setScreenId(3);
+		
+		MovieScheduleVO msd15 = new MovieScheduleVO();
+		msd15.setmScheduleId(15);
+		msd15.setmScheduleTime("21:00");
+		msd15.setMovieId(5);
+		msd15.setScreenId(3);
+		
+		}
+	
+	
+	
+	
 }

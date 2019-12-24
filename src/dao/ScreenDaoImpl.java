@@ -36,7 +36,6 @@ private static ScreenDaoImpl instance;
 				}
 			} 
 		}
-		System.out.println();
 		return null;
 
 	}

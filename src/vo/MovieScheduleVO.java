@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class MovieScheduleVO {
 	private int mScheduleId;	// 영화 시간 아이디
-	private Date mScheduleTime; // 영화 상영 시간
+	private String mScheduleTime; // 영화 상영 시간
 	
 	// 외래키 
 	private int movieId;	// 영화 아이디
@@ -18,10 +18,10 @@ public class MovieScheduleVO {
 	public void setmScheduleId(int mScheduleId) {
 		this.mScheduleId = mScheduleId;
 	}
-	public Date getmScheduleTime() {
+	public String getmScheduleTime() {
 		return mScheduleTime;
 	}
-	public void setmScheduleTime(Date mScheduleTime) {
+	public void setmScheduleTime(String mScheduleTime) {
 		this.mScheduleTime = mScheduleTime;
 	}
 	public int getMovieId() {
