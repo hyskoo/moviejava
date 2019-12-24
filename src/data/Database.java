@@ -222,90 +222,105 @@ public class Database {
 		msd1.setmScheduleTime("9:00");
 		msd1.setMovieId(1);
 		msd1.setScreenId(1);
+		mSchlist.add(msd1);
 		
 		MovieScheduleVO msd2 = new MovieScheduleVO();
 		msd2.setmScheduleId(2);
 		msd2.setmScheduleTime("12:00");
 		msd2.setMovieId(2);
 		msd2.setScreenId(1);
+		mSchlist.add(msd2);
 		
 		MovieScheduleVO msd3 = new MovieScheduleVO();
 		msd3.setmScheduleId(3);
 		msd3.setmScheduleTime("15:00");
 		msd3.setMovieId(3);
 		msd3.setScreenId(1);
+		mSchlist.add(msd3);
 		
 		MovieScheduleVO msd4 = new MovieScheduleVO();
 		msd4.setmScheduleId(4);
 		msd4.setmScheduleTime("18:00");
 		msd4.setMovieId(4);
 		msd4.setScreenId(1);
+		mSchlist.add(msd4);
 		
 		MovieScheduleVO msd5 = new MovieScheduleVO();
 		msd5.setmScheduleId(5);
 		msd5.setmScheduleTime("21:00");
 		msd5.setMovieId(5);
 		msd5.setScreenId(1);
+		mSchlist.add(msd5);
 		
 		MovieScheduleVO msd6 = new MovieScheduleVO();
 		msd6.setmScheduleId(6);
 		msd6.setmScheduleTime("09:00");
 		msd6.setMovieId(1);
 		msd6.setScreenId(2);
+		mSchlist.add(msd6);
 		
 		MovieScheduleVO msd7 = new MovieScheduleVO();
 		msd7.setmScheduleId(7);
 		msd7.setmScheduleTime("12:00");
 		msd7.setMovieId(2);
 		msd7.setScreenId(2);
+		mSchlist.add(msd7);
 		
 		MovieScheduleVO msd8 = new MovieScheduleVO();
 		msd8.setmScheduleId(8);
 		msd8.setmScheduleTime("15:00");
 		msd8.setMovieId(3);
 		msd8.setScreenId(2);
+		mSchlist.add(msd8);
 		
 		MovieScheduleVO msd9 = new MovieScheduleVO();
 		msd9.setmScheduleId(9);
 		msd9.setmScheduleTime("18:00");
 		msd9.setMovieId(4);
 		msd9.setScreenId(2);
+		mSchlist.add(msd9);
 		
 		MovieScheduleVO msd10 = new MovieScheduleVO();
 		msd10.setmScheduleId(10);
 		msd10.setmScheduleTime("21:00");
 		msd10.setMovieId(5);
 		msd10.setScreenId(2);
+		mSchlist.add(msd10);
 		
 		MovieScheduleVO msd11 = new MovieScheduleVO();
 		msd11.setmScheduleId(11);
 		msd11.setmScheduleTime("09:00");
 		msd11.setMovieId(1);
 		msd11.setScreenId(3);
+		mSchlist.add(msd11);
 		
 		MovieScheduleVO msd12 = new MovieScheduleVO();
 		msd12.setmScheduleId(12);
 		msd12.setmScheduleTime("12:00");
 		msd12.setMovieId(2);
 		msd12.setScreenId(3);
+		mSchlist.add(msd12);
 		
 		MovieScheduleVO msd13 = new MovieScheduleVO();
 		msd13.setmScheduleId(13);
 		msd13.setmScheduleTime("15:00");
 		msd13.setMovieId(3);
 		msd13.setScreenId(3);
+		mSchlist.add(msd13);
 		
 		MovieScheduleVO msd14 = new MovieScheduleVO();
 		msd14.setmScheduleId(14);
 		msd14.setmScheduleTime("18:00");
 		msd14.setMovieId(4);
 		msd14.setScreenId(3);
+		mSchlist.add(msd14);
 		
 		MovieScheduleVO msd15 = new MovieScheduleVO();
 		msd15.setmScheduleId(15);
 		msd15.setmScheduleTime("21:00");
 		msd15.setMovieId(5);
 		msd15.setScreenId(3);
+		mSchlist.add(msd15);
 		
 		}
 	

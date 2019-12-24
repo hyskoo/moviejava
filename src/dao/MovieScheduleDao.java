@@ -2,6 +2,6 @@ package dao;
 
 public interface MovieScheduleDao {
 
-	void getMoiveScheduleInfo();
+	void getMoiveScheduleInfo(int movieNo);
 
 }

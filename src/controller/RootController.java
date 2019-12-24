@@ -34,10 +34,9 @@ public class RootController {
 	public static void main(String[] args) {
 		// 회원정보 확인 ->  영화 선택 -> 시간 선택 -> 좌석 선택 -> 결제창 -> 영수증 출력
 		RootController control = new RootController();
-		ScreenService screenService = ScreenServiceImpl.getInstance();
 		control.start();			// 1. 첫시작 로그인화면
-		control.movieInfo();		// 2. 영화 선택 페이지 보여주기
-		control.selectMoiveTime();	// 3. 영화의 시간을 선택한다.
+		// 2. 영화 선택 페이지 보여주기
+		// 3. 영화의 시간을 선택한다.
 		
 		
 	}
@@ -51,6 +50,7 @@ public class RootController {
 			if (Session.loginUser == null){
 				System.out.println("1.로그인 \t 2. 회원가입 \t ");
 			} else if (Session.loginUser != null) {
+				movieInfo(); //  2. 영화 선택 페이지 보여주기
 				break;
 			} else if (Session.loginUser.getUserLevel() >= 90) {
 				System.out.println("관리자 기능입니다.");
@@ -78,20 +78,23 @@ public class RootController {
 			Scanner s = new Scanner(System.in);
 			int movieNo = Integer.parseInt(s.nextLine());
 			movieService.getMovieInfo(movieNo);
-			System.out.println("-----------------------------");
-			System.out.println("재시작");
-			System.out.println("-----------------------------");
 			
 			System.out.println("이 영화를 선택하시겠습니까? (Y/N)");
 			if (s.nextLine().equalsIgnoreCase("Y")) {
-				System.out.println("영화선택");
+				getMovieSchedule(movieNo);
 				break;
-			}		
+			}
 		} while(true);
 	}
 	
-	private void selectMoiveTime() {
-		// TODO Auto-generated method stub
+	private void getMovieSchedule(int movieNo) {
+		movieSchService.getMovieSchedule(movieNo);
+		
+		Scanner scan = new Scanner(System.in);
+		System.out.println("영화 시간을 선택해주세요.");
+		String selectMoiveTime = scan.nextLine();
+		System.out.println(selectMoiveTime);
+		
 		
 	}
 
