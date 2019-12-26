@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import service.AdminService;
@@ -8,10 +10,13 @@ import service.MovieScheduleService;
 import service.MovieScheduleServiceImpl;
 import service.MovieService;
 import service.MovieServiceImpl;
+import service.ReceiptInfoService;
+import service.ReceiptInfoServiceImpl;
 import service.ScreenService;
 import service.ScreenServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
+import vo.PayVO;
 import data.Session;
 
 public class RootController {
@@ -31,8 +36,12 @@ public class RootController {
 	MovieService movieService = MovieServiceImpl.getInstance();
 	ScreenService screenService = ScreenServiceImpl.getInstance();
 	MovieScheduleService movieSchService = MovieScheduleServiceImpl.getInstance();
+	//좌석관련 서비스 호출 추가해야됨
+	ReceiptInfoService receiptService = ReceiptInfoServiceImpl.getInstance();
+	
+	
 	public static void main(String[] args) {
-		// 회원정보 확인 ->  영화 선택 -> 시간 선택 -> 좌석 선택 -> 결제창 -> 영수증 출력
+		// 회원정보 확인 ->  영화 선택 -> 시간 선택 -> 인원수 선택 -> 좌석 선택 -> 결제창 -> 영수증 출력
 		RootController control = new RootController();
 		control.start();			// 1. 첫시작 로그인화면
 		// 2. 영화 선택 페이지 보여주기
@@ -88,13 +97,49 @@ public class RootController {
 	}
 	
 	private void getMovieSchedule(int movieNo) {
-		movieSchService.getMovieSchedule(movieNo);
-		
 		Scanner scan = new Scanner(System.in);
-		System.out.println("영화 시간을 선택해주세요.");
-		String selectMoiveTime = scan.nextLine();
-		System.out.println(selectMoiveTime);
+		System.out.println("영화의 상영관을 선택해주세요 Ex) 제 1상영관의 경우 1입력.\n");
+		movieSchService.getMovieSchedule(movieNo);
+		String selectScreen = scan.nextLine();
 		
+
+		PayVO pay = new PayVO();
+		System.out.println("관람을 할 인원을 선택해주세요.");
+		System.out.println("성인은 몇명 입니까?");
+		pay.setPayAdultCnt(Integer.parseInt(scan.nextLine()));
+		System.out.println("청소년은 몇명 입니까?");
+		pay.setPayYoungCnt(Integer.parseInt(scan.nextLine()));
+		System.out.println("어린이는 몇명 입니까?");
+		pay.setPayChildCnt(Integer.parseInt(scan.nextLine()));
+		
+		// selectMovieTime에서 상영관을 선택한 값을 int형으로 선택하여 파라미터로 사용한다.
+		getScreenSeat(selectScreen, pay);
+		
+//		getReceiptInfo(selectScreen, pay);
+	}
+	
+	
+		
+	
+	// 좌석을 선택하는 메소드 임시 메소드
+	private void getScreenSeat(String selectScreen, PayVO pay) {
+		System.out.println("해당 관에 대한 좌석을 선택해주세요");
+//		seatService.getSeatNumber(selectMovieTime);
+		
+		int seatid = 0;
+		getReceiptInfo(selectScreen, pay, seatid);
+	}
+	
+	
+
+	// 영수증 출력용 메소드
+	private void getReceiptInfo(String selectScreen, PayVO pay, int seatid) {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("결제 방식을 선택해주세요 \n"
+				+ "결제 방법을 선택해주세요. 1. 카드 2. 현금 3. 페이");
+		int payWay = Integer.parseInt(scan.nextLine());
+		
+		receiptService.getReceipt(selectScreen, pay, seatid, payWay);
 		
 	}
 

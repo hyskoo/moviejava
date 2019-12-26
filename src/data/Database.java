@@ -3,9 +3,11 @@ package data;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import vo.MovieInfoVO;
 import vo.MovieScheduleVO;
+import vo.PayVO;
 import vo.ScreenVO;
 import vo.UserVO;
 
@@ -21,7 +23,7 @@ public class Database {
 		}
 		return instance;
 	}
-	
+	Date today = new Date();
 	/**
  	 * @author 김령환
  	 * @brief String타입을 Date형으로 넣기위한 형변환. 및 2차원 배열을 통한 DB화 및 초기화 블럭을 통한 초기 관리자 설정
@@ -37,12 +39,18 @@ public class Database {
 		user.setUserPhone("010-1234-5678");
 		user.setUserLevel(90);			//90이상은 관리자
 		user.setUserPoint(1000);
-		try {
-			user.setUserDate(dateform.parse("2019-01-20"));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		user.setUserDate(today);
 		userlist.add(user);
+		
+		UserVO user2 = new UserVO();
+		user2.setUserId("1");
+		user2.setUserPw("1");
+		user2.setUserName("user1");
+		user2.setUserPhone("010-1234-5678");
+		user2.setUserLevel(0);			//90이상은 관리자
+		user2.setUserPoint(1000);
+		user2.setUserDate(today);
+		userlist.add(user2);
 	} // userList END
 	
 	/**
@@ -255,56 +263,56 @@ public class Database {
 		MovieScheduleVO msd6 = new MovieScheduleVO();
 		msd6.setmScheduleId(6);
 		msd6.setmScheduleTime("09:00");
-		msd6.setMovieId(1);
+		msd6.setMovieId(3);
 		msd6.setScreenId(2);
 		mSchlist.add(msd6);
 		
 		MovieScheduleVO msd7 = new MovieScheduleVO();
 		msd7.setmScheduleId(7);
 		msd7.setmScheduleTime("12:00");
-		msd7.setMovieId(2);
+		msd7.setMovieId(4);
 		msd7.setScreenId(2);
 		mSchlist.add(msd7);
 		
 		MovieScheduleVO msd8 = new MovieScheduleVO();
 		msd8.setmScheduleId(8);
 		msd8.setmScheduleTime("15:00");
-		msd8.setMovieId(3);
+		msd8.setMovieId(5);
 		msd8.setScreenId(2);
 		mSchlist.add(msd8);
 		
 		MovieScheduleVO msd9 = new MovieScheduleVO();
 		msd9.setmScheduleId(9);
 		msd9.setmScheduleTime("18:00");
-		msd9.setMovieId(4);
+		msd9.setMovieId(1);
 		msd9.setScreenId(2);
 		mSchlist.add(msd9);
 		
 		MovieScheduleVO msd10 = new MovieScheduleVO();
 		msd10.setmScheduleId(10);
 		msd10.setmScheduleTime("21:00");
-		msd10.setMovieId(5);
+		msd10.setMovieId(2);
 		msd10.setScreenId(2);
 		mSchlist.add(msd10);
 		
 		MovieScheduleVO msd11 = new MovieScheduleVO();
 		msd11.setmScheduleId(11);
 		msd11.setmScheduleTime("09:00");
-		msd11.setMovieId(1);
+		msd11.setMovieId(5);
 		msd11.setScreenId(3);
 		mSchlist.add(msd11);
 		
 		MovieScheduleVO msd12 = new MovieScheduleVO();
 		msd12.setmScheduleId(12);
 		msd12.setmScheduleTime("12:00");
-		msd12.setMovieId(2);
+		msd12.setMovieId(3);
 		msd12.setScreenId(3);
 		mSchlist.add(msd12);
 		
 		MovieScheduleVO msd13 = new MovieScheduleVO();
 		msd13.setmScheduleId(13);
 		msd13.setmScheduleTime("15:00");
-		msd13.setMovieId(3);
+		msd13.setMovieId(2);
 		msd13.setScreenId(3);
 		mSchlist.add(msd13);
 		
@@ -318,11 +326,22 @@ public class Database {
 		MovieScheduleVO msd15 = new MovieScheduleVO();
 		msd15.setmScheduleId(15);
 		msd15.setmScheduleTime("21:00");
-		msd15.setMovieId(5);
+		msd15.setMovieId(1);
 		msd15.setScreenId(3);
 		mSchlist.add(msd15);
-		
-		}
+	}
+
+	public ArrayList<PayVO> payList = new ArrayList<>();
+	
+	{
+		PayVO pay = new PayVO();
+		pay.setPayId(1);
+		pay.setPayWay("카카오페이");
+		pay.setPayDate(today);
+		pay.setPayInfo("구매");
+		pay.setmScheduleId(1);
+		pay.setUserId("admin");
+	}
 	
 	
 	

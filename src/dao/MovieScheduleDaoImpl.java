@@ -21,7 +21,6 @@ public class MovieScheduleDaoImpl implements MovieScheduleDao {
 
 	@Override
 	public void getMoiveScheduleInfo(int movieNo) {
-		System.out.println(movieNo);
 			for (int i = 0; i < database.mv_list.size(); i++) {
 				if (database.mv_list.get(i).getMovieId() == movieNo) {
 					System.out.println(database.mv_list.get(i).getMovieName());

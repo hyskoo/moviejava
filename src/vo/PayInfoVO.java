@@ -1,7 +1,7 @@
 package vo;
 
 public class PayInfoVO {
-	int payInfoId;	// 결제 정보 아이디
+	int receiptId;	// 영수증 아이디
 	
 	// 외래키
 	int payId;		// 결제 ID
@@ -11,10 +11,10 @@ public class PayInfoVO {
 	
 	
 	public int getPayInfoId() {
-		return payInfoId;
+		return receiptId;
 	}
 	public void setPayInfoId(int payInfoId) {
-		this.payInfoId = payInfoId;
+		this.receiptId = payInfoId;
 	}
 	public int getPayId() {
 		return payId;

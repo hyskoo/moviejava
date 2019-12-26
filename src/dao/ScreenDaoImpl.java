@@ -6,7 +6,7 @@ import vo.UserVO;
 
 public class ScreenDaoImpl implements ScreenDao {
 
-private static ScreenDaoImpl instance;
+	private static ScreenDaoImpl instance;
 	
 	private ScreenDaoImpl(){}
 	

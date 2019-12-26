@@ -50,12 +50,15 @@ public class UserServiceImpl implements UserService {
 		String name = scan.nextLine();
 		System.out.print("전화번호 : ");
 		String phone = scan.nextLine();
+		System.out.print("나이 : ");
+		String age = scan.nextLine();
 		
 		UserVO user = new UserVO();
 		user.setUserId(id);
 		user.setUserPw(pw);
 		user.setUserName(name);
 		user.setUserPhone(phone);
+		user.setUserPhone(age);
 		user.setUserDate(today);
 		
 		UserVO userCheck = userDao.selectUser("ID", user.getUserId());
