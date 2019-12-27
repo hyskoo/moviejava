@@ -4,6 +4,6 @@ import vo.PayVO;
 
 public interface ReceiptInfoService {
 
-	void getReceipt(String selectScreen, PayVO pay, int seatid, int payWay);
+	void getReceipt(int movieId, String ScreenMoiveId, PayVO paycnt, int seatid, int payWay);
 	
 }

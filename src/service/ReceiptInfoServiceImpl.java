@@ -19,8 +19,9 @@ public class ReceiptInfoServiceImpl implements ReceiptInfoService {
 	ReceiptInfoDao ReceiptDao = ReceiptInfoDaoImpl.getInstance();
 
 	@Override
-	public void getReceipt(String selectScreen, PayVO pay, int seatid, int payWay) {
-		System.out.println(selectScreen + " / " + pay.getPayAdultCnt() + " / " + seatid + " / " + payWay);
+	public void getReceipt(int movieId, String ScreenMoiveId, PayVO paycnt, int seatid, int payWay) {
+		
+		ReceiptDao.getReceipt(movieId, ScreenMoiveId, paycnt, seatid, payW);
 	}
 	
 	

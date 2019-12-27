@@ -29,7 +29,6 @@ public class UserServiceImpl implements UserService {
  	 * @brief DaoImpl을 호출하여 값, 객채들을 반환 받는다.
  	 */
 	UserDao userDao = UserDaoImpl.getInstance();
-	AdminService adminService = AdminServiceImpl.getInstance();
 
 	/** 회원가입
  	 * @author 김령환
@@ -101,14 +100,9 @@ public class UserServiceImpl implements UserService {
 			System.out.println("로그인 성공");
 			System.out.println(user.getUserName() + "회원님 확인되었습니다.");
 			
-			
 			if (Session.loginUser.getUserLevel() >= 90) {
-				System.out.println("관리자 페이지로 이동합니다.");
-				adminService.getList();
-			} else {
-				// 결제페이지로 이동할 메소드를 구한한다.
+				System.out.println("관리자님 환영합니다.");
 			}
-
 		}
 	}
 	

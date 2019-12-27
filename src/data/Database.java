@@ -235,14 +235,14 @@ public class Database {
 		MovieScheduleVO msd2 = new MovieScheduleVO();
 		msd2.setmScheduleId(2);
 		msd2.setmScheduleTime("12:00");
-		msd2.setMovieId(2);
+		msd2.setMovieId(1);
 		msd2.setScreenId(1);
 		mSchlist.add(msd2);
 		
 		MovieScheduleVO msd3 = new MovieScheduleVO();
 		msd3.setmScheduleId(3);
 		msd3.setmScheduleTime("15:00");
-		msd3.setMovieId(3);
+		msd3.setMovieId(1);
 		msd3.setScreenId(1);
 		mSchlist.add(msd3);
 		
@@ -333,17 +333,17 @@ public class Database {
 
 	public ArrayList<PayVO> payList = new ArrayList<>();
 	
-	{
+	{	
 		PayVO pay = new PayVO();
-		pay.setPayId(1);
-		pay.setPayWay("카카오페이");
+		pay.setPayId(0);
+		pay.setPayWay("현금");
 		pay.setPayDate(today);
 		pay.setPayInfo("구매");
 		pay.setmScheduleId(1);
 		pay.setUserId("admin");
+		payList.add(pay);
 	}
-	
-	
+
 	
 	
 }

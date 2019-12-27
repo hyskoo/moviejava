@@ -24,10 +24,23 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	@Override
 	public void getMovieSchedule(int movieNo) {
 
-		// 해당영화를 보여주는 기능
+		// 해당영화의 시간표를 보여주는 기능
 		movieSchDao.getMoiveScheduleInfo(movieNo);
 		
 		
+		
+	}
+
+	@Override
+	public String getOneMovieInfo(int movieId, String screenMoiveId) {
+		
+		return movieSchDao.getOneMovieInfo(movieId, screenMoiveId); 
+	}
+
+	@Override
+	public int getMovieSchId(int movieId, String screenMoiveId) {
+		
+		return movieSchDao.getMovieSchId(movieId, screenMoiveId); 
 	}
 
 }
