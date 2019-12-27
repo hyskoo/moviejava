@@ -9,6 +9,7 @@ import vo.MovieInfoVO;
 import vo.MovieScheduleVO;
 import vo.PayVO;
 import vo.ScreenVO;
+import vo.Screen_seatVO;
 import vo.UserVO;
 
 public class Database {
@@ -343,7 +344,139 @@ public class Database {
 		pay.setUserId("admin");
 		payList.add(pay);
 	}
-
+	
+	public ArrayList<Screen_seatVO> screen1Seat = new ArrayList<>();
+	{
+		for (int i = 0; i <= 5; i++){
+			for(int j = 1; j <= 6; j++){
+				Screen_seatVO seat = new Screen_seatVO();
+				
+				seat.setScreenId(j);
+				seat.setSeatid(6 * i + j);
+				seat.setSeatNum(j);
+				seat.setBlankSeat(0);
+				if (i == 0 ){
+					seat.setSeatLevel(1);
+					seat.setSeatPrice(8000);
+					seat.setSeatRownumber("A");
+				}else if(i == 1){
+					seat.setSeatLevel(1);
+					seat.setSeatPrice(8000);
+					seat.setSeatRownumber("B");
+				}
+				else if(i == 2){
+					seat.setSeatLevel(2);
+					seat.setSeatPrice(9500);
+					seat.setSeatRownumber("C");
+				}
+				else if(i == 3){
+					seat.setSeatLevel(2);
+					seat.setSeatPrice(9500);
+					seat.setSeatRownumber("D");
+				}
+				else if (i== 4){
+					seat.setSeatLevel(3);
+					seat.setSeatPrice(11000);
+					seat.setSeatRownumber("E");
+				}
+				else {
+					seat.setSeatLevel(3);
+					seat.setSeatPrice(11000);
+					seat.setSeatRownumber("F");
+				}
+				screen1Seat.add(seat);
+				}
+			}			
+		}
+	
+	public ArrayList<Screen_seatVO> screen2Seat = new ArrayList<>();
+	{
+		for (int i = 0; i <= 5; i++){
+			for(int j = 1; j <= 15; j++){
+				Screen_seatVO seat = new Screen_seatVO();
+				
+				seat.setScreenId(j);
+				seat.setSeatid(15 * i + j);
+				seat.setSeatNum(j);
+				seat.setBlankSeat(0);
+				if (i == 0 ){
+					seat.setSeatLevel(1);
+					seat.setSeatPrice(8000);
+					seat.setSeatRownumber("A");
+				}else if(i == 1){
+					seat.setSeatLevel(1);
+					seat.setSeatPrice(8000);
+					seat.setSeatRownumber("B");
+				}
+				else if(i == 2){
+					seat.setSeatLevel(2);
+					seat.setSeatPrice(9500);
+					seat.setSeatRownumber("C");
+				}
+				else if(i == 3){
+					seat.setSeatLevel(2);
+					seat.setSeatPrice(9500);
+					seat.setSeatRownumber("D");
+				}
+				else if (i== 4){
+					seat.setSeatLevel(3);
+					seat.setSeatPrice(11000);
+					seat.setSeatRownumber("E");
+				}
+				else {
+					seat.setSeatLevel(3);
+					seat.setSeatPrice(11000);
+					seat.setSeatRownumber("F");
+				}
+				screen2Seat.add(seat);
+				}
+			}			
+		}
+	
+	public ArrayList<Screen_seatVO> screen3Seat = new ArrayList<>();
+	{
+		for (int i = 0; i <= 5; i++){
+			for(int j = 1; j <= 9; j++){
+				Screen_seatVO seat = new Screen_seatVO();
+				
+				seat.setScreenId(j);
+				seat.setSeatid(9 * i + j);
+				seat.setSeatNum(j);
+				
+				if (i == 0 ){
+					seat.setSeatLevel(1);
+					seat.setSeatPrice(8000);
+					seat.setSeatRownumber("A");
+				}else if(i == 1){
+					seat.setSeatLevel(1);
+					seat.setSeatPrice(8000);
+					seat.setSeatRownumber("B");
+				}
+				else if(i == 2){
+					seat.setSeatLevel(2);
+					seat.setSeatPrice(9500);
+					seat.setSeatRownumber("C");
+				}
+				else if(i == 3){
+					seat.setSeatLevel(2);
+					seat.setSeatPrice(9500);
+					seat.setSeatRownumber("D");
+				}
+				else if (i== 4){
+					seat.setSeatLevel(3);
+					seat.setSeatPrice(11000);
+					seat.setSeatRownumber("E");
+				}
+				else {
+					seat.setSeatLevel(3);
+					seat.setSeatPrice(11000);
+					seat.setSeatRownumber("F");
+				}
+				screen3Seat.add(seat);
+				}
+			}			
+		}
+	
 	
 	
 }

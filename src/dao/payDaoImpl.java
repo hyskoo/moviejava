@@ -42,6 +42,7 @@ public class payDaoImpl implements payDao {
 		// 외래키
 		pay.setmScheduleId(Integer.parseInt(String.valueOf(param.get("영화 상영시간 아이디"))));
 		pay.setUserId(Session.loginUser.getUserId());
+		
 		database.payList.add(pay);
 		
 	}

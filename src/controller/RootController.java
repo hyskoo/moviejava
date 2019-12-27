@@ -14,6 +14,8 @@ import service.ReceiptInfoService;
 import service.ReceiptInfoServiceImpl;
 import service.ScreenService;
 import service.ScreenServiceImpl;
+import service.SeatService;
+import service.SeatServiceImpl;
 import service.UserService;
 import service.UserServiceImpl;
 import service.payService;
@@ -38,7 +40,7 @@ public class RootController {
 	MovieService movieService = MovieServiceImpl.getInstance();
 	ScreenService screenService = ScreenServiceImpl.getInstance();
 	MovieScheduleService movieSchService = MovieScheduleServiceImpl.getInstance();
-	//좌석관련 서비스 호출 추가해야됨
+	SeatService seatService = SeatServiceImpl.getInstance();//좌석관련 서비스 호출
 	payService payservice = payServiceImpl.getInstance();
 	ReceiptInfoService receiptService = ReceiptInfoServiceImpl.getInstance();
 	
@@ -135,13 +137,17 @@ public class RootController {
 				
 				System.out.println("어린이는 몇명 입니까?");
 				paramMap.put("영화어린이수", Integer.parseInt(scan.nextLine()));
+				
+				System.out.println(paramMap.keySet());
+				
+				
 				getScreenSeat(paramMap);
 				break;
 			}
 		} while (true);
 	}
 	
-
+	// 자리 출력 메소드 이전것
 	private void getScreenSeat(Map<String, Object> param) {
 		System.out.println("해당 관에 대한 좌석을 선택해주세요");
 //		seatService.getSeatNumber(selectMovieTime);
@@ -150,9 +156,28 @@ public class RootController {
 		int seatid = 0;
 		paramMap.put("좌석아이디", seatid);
 		
+		
+		
+		
 		payMovie(paramMap);
 	}
-	
+/*
+	// 자리 출력 메소드 현재
+	private void getScreenSeat(int screenNo){
+		System.out.println(screenNo);
+		Scanner scan = new Scanner(System.in);
+		//사용자가 선택한 상영관의 자리를 출력
+		seatService.showSeat(screenNo);
+		System.out.println("자리를 선택해주세요");
+		String seatNum = scan.nextLine();
+		
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put(seatNum, screenNo);
+//		seatService.selectSeat(paramMap);
+		
+		
+	}
+*/	
 	
 	private void payMovie(Map<String, Object> param) {
 		Scanner scan = new Scanner(System.in);
@@ -183,10 +208,12 @@ public class RootController {
 	
 	// 영수증 출력용 메소드
 	private void getReceiptInfo(Map<String, Object> param) {
-//		receiptService.getReceipt(param);
+		receiptService.getReceipt(param);
 	}
 
-	
+
+
+
 
 
 }

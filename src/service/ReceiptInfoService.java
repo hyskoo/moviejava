@@ -1,9 +1,9 @@
 package service;
 
-import vo.PayVO;
+import java.util.Map;
 
 public interface ReceiptInfoService {
-
-	void getReceipt(int movieId, String ScreenMoiveId, PayVO paycnt, int seatid, int payWay);
+	
+	void getReceipt(Map<String, Object> param);
 	
 }

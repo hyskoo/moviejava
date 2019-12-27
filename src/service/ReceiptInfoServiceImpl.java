@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Map;
+
 import vo.PayVO;
 import dao.ReceiptInfoDao;
 import dao.ReceiptInfoDaoImpl;
@@ -19,9 +21,8 @@ public class ReceiptInfoServiceImpl implements ReceiptInfoService {
 	ReceiptInfoDao ReceiptDao = ReceiptInfoDaoImpl.getInstance();
 
 	@Override
-	public void getReceipt(int movieId, String ScreenMoiveId, PayVO paycnt, int seatid, int payWay) {
-		
-		ReceiptDao.getReceipt(movieId, ScreenMoiveId, paycnt, seatid, payW);
+	public void getReceipt(Map<String, Object> param) {
+		ReceiptDao.getReceipt(param);
 	}
 	
 	
