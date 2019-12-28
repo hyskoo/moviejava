@@ -61,6 +61,22 @@ public class MovieScheduleDaoImpl implements MovieScheduleDao {
 			if (database.mSchlist.get(i).getMovieId() == movieId) {
 				num++;
 				if (Integer.parseInt(screenMoiveId) == num) {
+					id= database.mSchlist.get(i).getmScheduleId();
+				}
+			}
+		}		
+		return id;
+	}
+
+	@Override
+	public int getScreenId(int movieId, String screenMoiveId) {
+
+		int num = 0;
+		int id = 0;
+		for (int i = 0; i < database.mSchlist.size(); i++) {
+			if (database.mSchlist.get(i).getMovieId() == movieId) {
+				num++;
+				if (Integer.parseInt(screenMoiveId) == num) {
 					id= database.mSchlist.get(i).getScreenId();
 				}
 			}

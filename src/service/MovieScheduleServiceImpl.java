@@ -43,4 +43,10 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 		return movieSchDao.getMovieSchId(movieId, screenMoiveId); 
 	}
 
+	@Override
+	public int getScreenId(int movieId, String screenMoiveId) {
+
+		return movieSchDao.getScreenId(movieId, screenMoiveId);
+	}
+
 }

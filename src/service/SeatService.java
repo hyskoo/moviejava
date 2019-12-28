@@ -2,9 +2,8 @@ package service;
 
 public interface SeatService {
 	
-	String showSeat(int screenNo);
+	void showSeat(int screenId);
 
-	void selectSeat(String seatNum);
-	
+	int selectSeat(String SeatId, int screenId);
 	
 }

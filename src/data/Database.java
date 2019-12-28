@@ -220,7 +220,7 @@ public class Database {
 	}
 	
 	/**
- 	 * @author 김령환
+ 	 * @author 구한나
  	 * @brief 
  	 */
 	public ArrayList<MovieScheduleVO> mSchlist = new ArrayList<>();
@@ -345,138 +345,59 @@ public class Database {
 		payList.add(pay);
 	}
 	
-	public ArrayList<Screen_seatVO> screen1Seat = new ArrayList<>();
+	public ArrayList<Screen_seatVO> seatlist = new ArrayList<>();
 	{
-		for (int i = 0; i <= 5; i++){
-			for(int j = 1; j <= 6; j++){
-				Screen_seatVO seat = new Screen_seatVO();
-				
-				seat.setScreenId(j);
-				seat.setSeatid(6 * i + j);
-				seat.setSeatNum(j);
-				seat.setBlankSeat(0);
-				if (i == 0 ){
-					seat.setSeatLevel(1);
-					seat.setSeatPrice(8000);
-					seat.setSeatRownumber("A");
-				}else if(i == 1){
-					seat.setSeatLevel(1);
-					seat.setSeatPrice(8000);
-					seat.setSeatRownumber("B");
+		int num = 0;
+		int col = 0;
+		for(int i = 1; i <= screenlist.size(); i++) {
+			for(int j = 0; j < 5; j ++) {
+				if(i == 1) {
+					col = 7;
+				} else if (i == 2) {
+					col = 8;
+				} else if (i == 3){
+					col = 9;
 				}
-				else if(i == 2){
-					seat.setSeatLevel(2);
-					seat.setSeatPrice(9500);
-					seat.setSeatRownumber("C");
+				for(int k = 1; k <= col; k++) {
+					Screen_seatVO seat = new Screen_seatVO();
+					num++;
+					seat.setSeatid(num);
+					seat.setScreenId(i);
+					seat.setSeatNum(k);
+					seat.setBlankSeat(0);
+					switch(j) {
+					case 0:
+						seat.setSeatLevel(1);
+						seat.setSeatPrice(8000);
+						seat.setSeatRownumber("A");
+						break;
+					case 1:
+						seat.setSeatLevel(1);
+						seat.setSeatPrice(8000);
+						seat.setSeatRownumber("B");
+						break;
+					case 2:
+						seat.setSeatLevel(2);
+						seat.setSeatPrice(9500);
+						seat.setSeatRownumber("C");
+						break;
+					case 3:
+						seat.setSeatLevel(2);
+						seat.setSeatPrice(9500);
+						seat.setSeatRownumber("D");
+						break;
+					case 4:
+						seat.setSeatLevel(3);
+						seat.setSeatPrice(11000);
+						seat.setSeatRownumber("E");
+						break;	
+					}
+					seatlist.add(seat);
 				}
-				else if(i == 3){
-					seat.setSeatLevel(2);
-					seat.setSeatPrice(9500);
-					seat.setSeatRownumber("D");
-				}
-				else if (i== 4){
-					seat.setSeatLevel(3);
-					seat.setSeatPrice(11000);
-					seat.setSeatRownumber("E");
-				}
-				else {
-					seat.setSeatLevel(3);
-					seat.setSeatPrice(11000);
-					seat.setSeatRownumber("F");
-				}
-				screen1Seat.add(seat);
-				}
-			}			
+			}
 		}
-	
-	public ArrayList<Screen_seatVO> screen2Seat = new ArrayList<>();
-	{
-		for (int i = 0; i <= 5; i++){
-			for(int j = 1; j <= 15; j++){
-				Screen_seatVO seat = new Screen_seatVO();
-				
-				seat.setScreenId(j);
-				seat.setSeatid(15 * i + j);
-				seat.setSeatNum(j);
-				seat.setBlankSeat(0);
-				if (i == 0 ){
-					seat.setSeatLevel(1);
-					seat.setSeatPrice(8000);
-					seat.setSeatRownumber("A");
-				}else if(i == 1){
-					seat.setSeatLevel(1);
-					seat.setSeatPrice(8000);
-					seat.setSeatRownumber("B");
-				}
-				else if(i == 2){
-					seat.setSeatLevel(2);
-					seat.setSeatPrice(9500);
-					seat.setSeatRownumber("C");
-				}
-				else if(i == 3){
-					seat.setSeatLevel(2);
-					seat.setSeatPrice(9500);
-					seat.setSeatRownumber("D");
-				}
-				else if (i== 4){
-					seat.setSeatLevel(3);
-					seat.setSeatPrice(11000);
-					seat.setSeatRownumber("E");
-				}
-				else {
-					seat.setSeatLevel(3);
-					seat.setSeatPrice(11000);
-					seat.setSeatRownumber("F");
-				}
-				screen2Seat.add(seat);
-				}
-			}			
-		}
-	
-	public ArrayList<Screen_seatVO> screen3Seat = new ArrayList<>();
-	{
-		for (int i = 0; i <= 5; i++){
-			for(int j = 1; j <= 9; j++){
-				Screen_seatVO seat = new Screen_seatVO();
-				
-				seat.setScreenId(j);
-				seat.setSeatid(9 * i + j);
-				seat.setSeatNum(j);
-				
-				if (i == 0 ){
-					seat.setSeatLevel(1);
-					seat.setSeatPrice(8000);
-					seat.setSeatRownumber("A");
-				}else if(i == 1){
-					seat.setSeatLevel(1);
-					seat.setSeatPrice(8000);
-					seat.setSeatRownumber("B");
-				}
-				else if(i == 2){
-					seat.setSeatLevel(2);
-					seat.setSeatPrice(9500);
-					seat.setSeatRownumber("C");
-				}
-				else if(i == 3){
-					seat.setSeatLevel(2);
-					seat.setSeatPrice(9500);
-					seat.setSeatRownumber("D");
-				}
-				else if (i== 4){
-					seat.setSeatLevel(3);
-					seat.setSeatPrice(11000);
-					seat.setSeatRownumber("E");
-				}
-				else {
-					seat.setSeatLevel(3);
-					seat.setSeatPrice(11000);
-					seat.setSeatRownumber("F");
-				}
-				screen3Seat.add(seat);
-				}
-			}			
-		}
-	
+	}
+
 	
 	
 }

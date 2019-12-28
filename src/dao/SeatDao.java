@@ -2,8 +2,8 @@ package dao;
 
 public interface SeatDao {
 	
-	void showScreenSeat(int screeenNo);
-	
-	void getScreenSeat(String seatNum);
-	
+	void showScreenSeat(int screenId);
+
+	int setBlankSeat(String seatChar, int seatNum, int screenId);
+
 }

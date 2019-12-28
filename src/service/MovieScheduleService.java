@@ -8,4 +8,6 @@ public interface MovieScheduleService {
 
 	int getMovieSchId(int movieId, String screenMoiveId);
 
+	int getScreenId(int movieId, String screenMoiveId);
+
 }

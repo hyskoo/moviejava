@@ -22,96 +22,57 @@ public class SeatDaoImpl implements SeatDao {
 
 
 	@Override
-	public void showScreenSeat(int screeenNo) {
-		if(screeenNo == 1){
-			for (int i = 0; i < database.screen1Seat.size(); i++) {
-				String seatNumber = database.screen1Seat.get(i).getSeatRownumber() + database.screen1Seat.get(i).getSeatNum();
+	public void showScreenSeat(int screenId) {
+		for (int i = 0; i < database.seatlist.size(); i++) {
+			if (screenId == database.seatlist.get(i).getScreenId()) {
+				
+			} else {
+				System.out.println("잘못입력하셨습니다.");
+			}
+			if (screenId <= 3 && screenId >= 1) {	
+				String seatNumber = database.seatlist.get(i).getSeatRownumber() + database.seatlist.get(i).getSeatNum();
 				System.out.print( seatNumber + "\t");
-				if(database.screen1Seat.get(i).getSeatNum() == 6){
+				if(database.seatlist.get(i).getSeatNum() == 6){
 					System.out.println();
 					for(int j = 0; j < 6; j++){
-						if (database.screen1Seat.get(i).getBlankSeat() == 0){	// 공석일 경우 □ 출력
+						if (database.seatlist.get(i).getBlankSeat() == 0){	// 공석일 경우 □ 출력
 							System.out.print("□ \t");	
 						}
-						if (database.screen1Seat.get(i).getBlankSeat() == 1){	// 예약석일 경우 ■ 출력
+						if (database.seatlist.get(i).getBlankSeat() == 1){	// 예약석일 경우 ■ 출력
 							System.out.print("■ \t");
 						}
-						if(database.screen1Seat.get(i).getBlankSeat() == 9){	// 없는 자리일 경우 빈칸으로 출력
+						if(database.seatlist.get(i).getBlankSeat() == 9){	// 없는 자리일 경우 빈칸으로 출력
 							System.out.print("  \t");
 						}
+						
 					}
 					System.out.println();
 				}
 			}System.out.println();
-
 		}
-		
-		if(screeenNo == 2){
-			for (int i = 0; i < database.screen2Seat.size(); i++) {
-				String seatNumber = database.screen2Seat.get(i).getSeatRownumber() + database.screen2Seat.get(i).getSeatNum();
-				System.out.print(seatNumber + "\t");
-				if(database.screen2Seat.get(i).getSeatNum() == 15){
-					System.out.println();
-					for(int j = 0; j < 15; j++){
-						if (database.screen2Seat.get(i).getBlankSeat() == 0){
-							System.out.print("□ \t");	
-						}
-						if (database.screen2Seat.get(i).getBlankSeat() == 1){
-							System.out.print("■ \t");
-						}
-						if(database.screen2Seat.get(i).getBlankSeat() == 9) {
-							System.out.print(" \t");
-						}
-					}
-					System.out.println();
-				}
-			}System.out.println();
-
-		}
-		
-		if(screeenNo == 3){
-			for (int i = 0; i < database.screen3Seat.size(); i++) {
-				String seatNumber = database.screen3Seat.get(i).getSeatRownumber() + database.screen3Seat.get(i).getSeatNum();
-				System.out.print(seatNumber + "\t");
-				if(database.screen3Seat.get(i).getSeatNum() == 9){
-					System.out.println();
-					for(int j = 0; j < 9; j++){
-						if (database.screen3Seat.get(i).getBlankSeat() == 0){
-							System.out.print("□ \t");	
-						}
-						if (database.screen3Seat.get(i).getBlankSeat() == 1){
-							System.out.print("■ \t");
-						}
-						if(database.screen3Seat.get(i).getBlankSeat() == 9) {
-							System.out.print(" \t");
-						}
-					}
-					System.out.println();
-				}
-			}System.out.println();
-
-		}
-
-
 	}
 	
-
-	//test
 	public static void main(String[] args) {
-		new SeatDaoImpl().getScreenSeat("B1");;
-		
+		System.out.println(new SeatDaoImpl().setBlankSeat("A", 8, 1));
 	}
+		
 
 	@Override
-	public void getScreenSeat(String seatNum) {
-		String checkSeatNumber = database.screen1Seat.get(0).getSeatRownumber() + database.screen1Seat.get(0).getSeatNum();
-		for(int i = 0; i < database.screen1Seat.size(); i++){
-			if (seatNum == checkSeatNumber){
-				System.out.println("결제하시겠습니까?");
+	public int setBlankSeat(String seatChar, int seatNum, int screenId) {
+		int seatid = 0;
+		System.out.println(database.seatlist.get(0).getSeatRownumber());
+		System.out.println(database.seatlist.get(7).getSeatNum());
+		for (int i = 0; i < database.seatlist.size() - 1; i++) {
+			if (database.seatlist.get(i).getSeatRownumber() == seatChar && database.seatlist.get(i).getSeatNum() == seatNum) {
+				database.seatlist.get(i).setBlankSeat(1);  // 좌석이 예약된 형태로 변경
+				seatid = database.seatlist.get(i).getSeatid();
 			}
-			
 		}
+
+		System.out.println(seatid);
 		
+		return seatid;
 	}
+
 }
 

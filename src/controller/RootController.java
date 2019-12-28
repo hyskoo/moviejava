@@ -123,10 +123,12 @@ public class RootController {
 			
 			// 해당 영화의 상영시간 아이디를 뽑아온다.
 			int movieSchId= movieSchService.getMovieSchId(movieId, screenMoiveId);
-			
+			// 영화의 상영관 아이디를 뽑아온다.
+			int screenId = movieSchService.getScreenId(movieId, screenMoiveId);
 			
 			if (scan.nextLine().equalsIgnoreCase("y")) {
 				paramMap.put("영화 상영시간 아이디", movieSchId);
+				paramMap.put("영화 사영관 아이디", screenId);
 				
 				System.out.println("관람을 할 인원을 선택해주세요.");
 				System.out.println("성인은 몇명 입니까?");
@@ -137,47 +139,36 @@ public class RootController {
 				
 				System.out.println("어린이는 몇명 입니까?");
 				paramMap.put("영화어린이수", Integer.parseInt(scan.nextLine()));
-				
-				System.out.println(paramMap.keySet());
-				
-				
+
 				getScreenSeat(paramMap);
 				break;
 			}
 		} while (true);
 	}
 	
-	// 자리 출력 메소드 이전것
+	// 자리 출력 및 입력 메소드 이전것
 	private void getScreenSeat(Map<String, Object> param) {
-		System.out.println("해당 관에 대한 좌석을 선택해주세요");
-//		seatService.getSeatNumber(selectMovieTime);
-		
-		// 결제를 해야한다. 결제정보를 저장한다. 저장은 유저의 아이디 값을 세션에서 가져와서 저장한다.
-		int seatid = 0;
-		paramMap.put("좌석아이디", seatid);
-		
-		
-		
-		
-		payMovie(paramMap);
-	}
-/*
-	// 자리 출력 메소드 현재
-	private void getScreenSeat(int screenNo){
-		System.out.println(screenNo);
 		Scanner scan = new Scanner(System.in);
-		//사용자가 선택한 상영관의 자리를 출력
-		seatService.showSeat(screenNo);
-		System.out.println("자리를 선택해주세요");
-		String seatNum = scan.nextLine();
-		
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put(seatNum, screenNo);
-//		seatService.selectSeat(paramMap);
-		
-		
+		int cnt = (int) param.get("영화어른수") + (int) param.get("영화청소년수") + (int) param.get("영화어린이수");
+		System.out.println(cnt);
+		do {
+			System.out.println("좌석을 선택해주세요");
+			
+			//사용자가 선택한 상영관의 좌석들을 보여준다.
+			seatService.showSeat((int) param.get("영화 상영관 아이디"));
+			
+			// 사용자가 좌석을 선택한곳의  아이디 값을 가져온다.
+			int seatid = seatService.selectSeat(scan.nextLine(), (int) param.get("영화 상영관 아이디"));
+			
+			
+			// 결제를 해야한다. 결제정보를 저장한다. 저장은 유저의 아이디 값을 세션에서 가져와서 저장한다.
+//			int seatid = 0;
+//			paramMap.put("좌석아이디", seatid);
+//
+//			payMovie(paramMap);
+		} while (cnt >= 0);
 	}
-*/	
+
 	
 	private void payMovie(Map<String, Object> param) {
 		Scanner scan = new Scanner(System.in);
