@@ -46,9 +46,8 @@ public class SeatServiceImpl implements SeatService {
 			return seatDao.setBlankSeat(SeatChar, SeatNum, screenId);
 			
 		} else if (SeatId.length() != 2) {
-			System.out.println("좌석번호를 잘못입력하셨습니다. \n 다시 ");
+			System.out.println("좌석을 잘못입력하셨습니다. \n 다시 ");
 		} else {
-			
 			System.out.print("다시 ");
 		}
 		return 0;

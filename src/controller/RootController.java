@@ -128,7 +128,7 @@ public class RootController {
 			
 			if (scan.nextLine().equalsIgnoreCase("y")) {
 				paramMap.put("영화 상영시간 아이디", movieSchId);
-				paramMap.put("영화 사영관 아이디", screenId);
+				paramMap.put("영화 상영관 아이디", screenId);
 				
 				System.out.println("관람을 할 인원을 선택해주세요.");
 				System.out.println("성인은 몇명 입니까?");
@@ -150,7 +150,6 @@ public class RootController {
 	private void getScreenSeat(Map<String, Object> param) {
 		Scanner scan = new Scanner(System.in);
 		int cnt = (int) param.get("영화어른수") + (int) param.get("영화청소년수") + (int) param.get("영화어린이수");
-		System.out.println(cnt);
 		do {
 			System.out.println("좌석을 선택해주세요");
 			

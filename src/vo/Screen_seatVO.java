@@ -7,6 +7,7 @@ public class Screen_seatVO {
 	private int SeatPrice;	// 좌석 가격
 	private String seatRownumber;		// 행의 문자
 	private int BlankSeat;	//예약 유무 	0:공석	1:예약석 
+
 	//외래키
 	private int screenId;  // 영화 상영관 아이디
 

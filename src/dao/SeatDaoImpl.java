@@ -1,8 +1,5 @@
 package dao;
 
-
-import javax.activation.MailcapCommandMap;
-
 import data.Database;
 
 public class SeatDaoImpl implements SeatDao {
@@ -19,44 +16,50 @@ public class SeatDaoImpl implements SeatDao {
 
 	Database database = Database.getInstance();
 
-
-
 	@Override
 	public void showScreenSeat(int screenId) {
+		int totalSeat = 0; // 해당 상영관의 좌석의 총갯수를 구하자 
+		int totalRow = 0; // 좌석의 총 행의 갯수 초기화
+		int totalCol = 0; // 좌석의 총 열의 갯수 초기화
 		for (int i = 0; i < database.seatlist.size(); i++) {
-			if (screenId == database.seatlist.get(i).getScreenId()) {
-				
-			} else {
-				System.out.println("잘못입력하셨습니다.");
+			if (database.seatlist.get(i).getScreenId() == screenId) {
+				totalSeat++;
 			}
-			if (screenId <= 3 && screenId >= 1) {	
+		}
+		
+		totalRow = 5; // 좌석의 총 행의 갯수 입력
+		totalCol = (int) (totalSeat / totalRow); // 좌석의 총 열의 갯수 입력
+		
+		// 해당 상영관의 좌석을 출력하여 회원에게 보여주자
+		for (int i = 0; i < database.seatlist.size(); i++) {
+			if (database.seatlist.get(i).getScreenId() == screenId) {
 				String seatNumber = database.seatlist.get(i).getSeatRownumber() + database.seatlist.get(i).getSeatNum();
 				System.out.print( seatNumber + "\t");
-				if(database.seatlist.get(i).getSeatNum() == 6){
-					System.out.println();
-					for(int j = 0; j < 6; j++){
-						if (database.seatlist.get(i).getBlankSeat() == 0){	// 공석일 경우 □ 출력
-							System.out.print("□ \t");	
+			}
+			// 해당상영관 + 열의 최대값을 조건으로 준다.
+			if (database.seatlist.get(i).getScreenId() == screenId && database.seatlist.get(i).getSeatNum() == totalCol) {
+				System.out.println();
+					for (int j = 0; j < totalCol; j++) {
+						switch (database.seatlist.get(i).getBlankSeat()) {
+						case 0:
+							System.out.print("□ \t"); // 공석일 경우 □ 출력
+							break;
+						case 1:
+							System.out.print("■ \t"); // 예약석일 경우 ■ 출력
+							break;
+						case 9:
+							System.out.print("  \t"); // 없는 자리일 경우 빈칸으로 출력
+							break;
+						default:
+							System.out.print("□ \t");
+							break;
 						}
-						if (database.seatlist.get(i).getBlankSeat() == 1){	// 예약석일 경우 ■ 출력
-							System.out.print("■ \t");
-						}
-						if(database.seatlist.get(i).getBlankSeat() == 9){	// 없는 자리일 경우 빈칸으로 출력
-							System.out.print("  \t");
-						}
-						
 					}
-					System.out.println();
-				}
-			}System.out.println();
-		}
+				System.out.println();
+			}
+		}	
 	}
 	
-	public static void main(String[] args) {
-		System.out.println(new SeatDaoImpl().setBlankSeat("A", 8, 1));
-	}
-		
-
 	@Override
 	public int setBlankSeat(String seatChar, int seatNum, int screenId) {
 		int seatid = 0;
