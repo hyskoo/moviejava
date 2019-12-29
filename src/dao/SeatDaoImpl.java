@@ -40,20 +40,15 @@ public class SeatDaoImpl implements SeatDao {
 			if (database.seatlist.get(i).getScreenId() == screenId && database.seatlist.get(i).getSeatNum() == totalCol) {
 				System.out.println();
 					for (int j = 0; j < totalCol; j++) {
-						switch (database.seatlist.get(i).getBlankSeat()) {
-						case 0:
-							System.out.print("□ \t"); // 공석일 경우 □ 출력
-							break;
-						case 1:
-							System.out.print("■ \t"); // 예약석일 경우 ■ 출력
-							break;
-						case 9:
+						if (database.seatlist.get(i).getBlankSeat() == 0) {
+							System.out.print("□ \t" + database.seatlist.get(i).getBlankSeat()); // 공석일 경우 □ 출력
+						} 
+						if (database.seatlist.get(i).getBlankSeat() == 1) {
+							System.out.print("■ \t" + database.seatlist.get(i).getBlankSeat()); // 예약석일 경우 ■ 출력
+						} 
+						if (database.seatlist.get(i).getBlankSeat() == 9) {
 							System.out.print("  \t"); // 없는 자리일 경우 빈칸으로 출력
-							break;
-						default:
-							System.out.print("□ \t");
-							break;
-						}
+						} 
 					}
 				System.out.println();
 			}
@@ -63,17 +58,20 @@ public class SeatDaoImpl implements SeatDao {
 	@Override
 	public int setBlankSeat(String seatChar, int seatNum, int screenId) {
 		int seatid = 0;
-		System.out.println(database.seatlist.get(0).getSeatRownumber());
-		System.out.println(database.seatlist.get(7).getSeatNum());
-		for (int i = 0; i < database.seatlist.size() - 1; i++) {
-			if (database.seatlist.get(i).getSeatRownumber() == seatChar && database.seatlist.get(i).getSeatNum() == seatNum) {
+		for (int i = 0; i < database.seatlist.size(); i++) {
+			if (database.seatlist.get(i).getSeatRownumber().equals(seatChar)
+				&& database.seatlist.get(i).getSeatNum() == seatNum  
+				&& database.seatlist.get(i).getScreenId() == screenId) {
+				
+				System.out.println("setBlankSeat = " + database.seatlist.get(i).getBlankSeat());
+				
 				database.seatlist.get(i).setBlankSeat(1);  // 좌석이 예약된 형태로 변경
 				seatid = database.seatlist.get(i).getSeatid();
+				System.out.println("seatid = " + seatid);
+				System.out.println("setBlankSeat = " + database.seatlist.get(i).getBlankSeat());
 			}
 		}
 
-		System.out.println(seatid);
-		
 		return seatid;
 	}
 
