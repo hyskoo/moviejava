@@ -1,5 +1,7 @@
 package service;
 
+import java.util.Map;
+
 public interface SeatService {
 	
 	void showSeat(int screenId);

@@ -1,5 +1,6 @@
 package dao;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
 import java.util.Set;
@@ -26,9 +27,8 @@ public class payDaoImpl implements payDao {
 	int paycnt = 1;
 
 	@Override
-	public void setPayInfo(Map<String, Object> param, String sway) {
+	public int setPayInfo(Map<String, Object> param, String sway) {
 		this.paycnt++;
-		System.out.println(sway);
 		PayVO pay = new  PayVO();
 		pay.setPayId(paycnt);
 		pay.setPayWay(sway);
@@ -43,6 +43,22 @@ public class payDaoImpl implements payDao {
 		pay.setUserId(Session.loginUser.getUserId());
 		
 		database.payList.add(pay);
+		
+		return paycnt;
+	}
+
+	@Override
+	public int getSeatPrice(Map<String, Object> param) {
+		int price = 0;
+		ArrayList<Integer> arr = (ArrayList<Integer>) param.get("좌석아이디");
+		for (int i = 0; i < database.seatlist.size(); i++) {
+			for (int j = 0; j < arr.size(); j++) {
+				if (database.seatlist.get(i).getSeatid() == arr.get(j)) {
+					price += database.seatlist.get(i).getSeatPrice();
+				}
+			}
+		}
+		return price;
 	}
 	
 	

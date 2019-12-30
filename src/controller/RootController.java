@@ -122,6 +122,7 @@ public class RootController {
 			int screenId = movieSchService.getScreenId(movieId, screenMoiveId);
 			
 			if (scan.nextLine().equalsIgnoreCase("y")) {
+				paramMap.put("영화 아이디", movieId);
 				paramMap.put("영화 상영시간 아이디", movieSchId);
 				paramMap.put("영화 상영관 아이디", screenId);
 				
@@ -180,33 +181,47 @@ public class RootController {
 	
 	private void payMovie(Map<String, Object> param) {
 		Scanner scan = new Scanner(System.in);
-		do{
+		do{	
+			System.out.println("총 결제 금액은 " + payservice.getSeatPrice(param) + "입니다.");
+			param.put("총금액", payservice.getSeatPrice(param));
 			System.out.println("결제 방식을 선택해주세요 \n"
-					+ "결제 방법을 선택해주세요. 1. 카드 2. 현금 3. 페이  0.이전화면으로");
-			int payWay = Integer.parseInt(scan.nextLine());
+					+ "1. 카드 2. 현금 3. 페이  0.이전화면으로");
+			String payWay = scan.nextLine();
 			
-			if (payWay == 0) {
+			if (Integer.parseInt(payWay) == 0) {
 				System.out.println("영화 선택 화면으로 돌아갑니다.");
 				break;
-			} else if (payWay <= 3 || payWay >= 1) {
-
-				payservice.setPayInfo(paramMap, payWay);
-				
+			} else if (Integer.parseInt(payWay) <= 3 || Integer.parseInt(payWay) >= 1) {
+				int payId = payservice.setPayInfo(paramMap, Integer.parseInt(payWay));
+				param.put("결제 아이디", payId);
 				//영수증을 불러온다.
-				getReceiptInfo(param);
+				getReceiptInfo(param, Integer.parseInt(payWay));
 			} else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
 		}while(true);
-
 	}
 
 
 	
 	
 	// 영수증 출력용 메소드
-	private void getReceiptInfo(Map<String, Object> param) {
-		receiptService.getReceipt(param);
+	private void getReceiptInfo(Map<String, Object> param, int payWay) {
+		Scanner scan = new Scanner(System.in);
+		int point = 0;
+		int inputMoney = 0;
+		do {
+			if (payWay == 2) {
+				System.out.println("금액을 투입해주세요.");
+				inputMoney = Integer.parseInt(scan.nextLine()); // 사용자가 입력한 금액
+			}
+			System.out.println("회원의 현재포인트는 " + Session.loginUser.getUserPoint() + "입니다. 포인트를 얼마사용하시겟습니까?");
+			point = Integer.parseInt(scan.nextLine());
+			receiptService.getReceipt(param, point, payWay,inputMoney);
+			if (point == 0) {
+				break;
+			}
+		} while (true);
 	}
 
 

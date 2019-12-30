@@ -1,6 +1,6 @@
 package vo;
 
-public class PayInfoVO {
+public class ReceiptVO {
 	int receiptId;	// 영수증 아이디
 	
 	// 외래키

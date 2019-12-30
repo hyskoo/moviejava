@@ -8,6 +8,7 @@ import java.util.Date;
 import vo.MovieInfoVO;
 import vo.MovieScheduleVO;
 import vo.PayVO;
+import vo.ReceiptVO;
 import vo.ScreenVO;
 import vo.Screen_seatVO;
 import vo.UserVO;
@@ -397,7 +398,11 @@ public class Database {
 			}
 		}
 	}
-
+	
+	public ArrayList<PayVO> receipt = new ArrayList<>();
+	{	
+		
+	}
 	
 	
 }
