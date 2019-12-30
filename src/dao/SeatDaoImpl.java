@@ -33,47 +33,70 @@ public class SeatDaoImpl implements SeatDao {
 		// 해당 상영관의 좌석을 출력하여 회원에게 보여주자
 		for (int i = 0; i < database.seatlist.size(); i++) {
 			if (database.seatlist.get(i).getScreenId() == screenId) {
-				String seatNumber = database.seatlist.get(i).getSeatRownumber() + database.seatlist.get(i).getSeatNum();
-				System.out.print( seatNumber + "\t");
-			}
-			// 해당상영관 + 열의 최대값을 조건으로 준다.
-			if (database.seatlist.get(i).getScreenId() == screenId && database.seatlist.get(i).getSeatNum() == totalCol) {
-				System.out.println();
-					for (int j = 0; j < totalCol; j++) {
-						if (database.seatlist.get(i).getBlankSeat() == 0) {
-							System.out.print("□ \t" + database.seatlist.get(i).getBlankSeat()); // 공석일 경우 □ 출력
-						} 
-						if (database.seatlist.get(i).getBlankSeat() == 1) {
-							System.out.print("■ \t" + database.seatlist.get(i).getBlankSeat()); // 예약석일 경우 ■ 출력
-						} 
-						if (database.seatlist.get(i).getBlankSeat() == 9) {
-							System.out.print("  \t"); // 없는 자리일 경우 빈칸으로 출력
-						} 
+				if (screenId == database.seatlist.get(i).getScreenId()) {
+					
+					String seatNumber = database.seatlist.get(i).getSeatRownumber() + database.seatlist.get(i).getSeatNum();
+					System.out.print(seatNumber + " ");
+					
+					if (database.seatlist.get(i).getBlankSeat() == 0){	// 공석일 경우 □ 출력
+						System.out.print("□ \t");	
+					} else if (database.seatlist.get(i).getBlankSeat() == 1){	// 예약석일 경우 ■ 출력
+						System.out.print("■ \t");
+					} else {	// 없는 자리일 경우 빈칸으로 출력
+						System.out.print("  \t");
 					}
-				System.out.println();
+					if(database.seatlist.get(i).getSeatNum() == totalCol) System.out.println();
+				}	
 			}
-		}	
+							
+//				if (database.seatlist.get(i).getSeatNum() <= totalCol) {
+//					String seatNumber = database.seatlist.get(i).getSeatRownumber() + database.seatlist.get(i).getSeatNum();
+//					System.out.print(seatNumber + "\t");
+//					if(database.seatlist.get(i).getSeatNum() == totalCol) {
+//						System.out.println();
+//					}
+//				}
+//				for (int j = 0; j < totalCol; j++) {
+//					if (database.seatlist.get(i).getBlankSeat() == 0) {
+//						System.out.print("□ \t"); // 공석일 경우 □ 출력
+//					} 
+//					if (database.seatlist.get(i).getBlankSeat() == 1) {
+//						System.out.print("■ \t"); // 예약석일 경우 ■ 출력
+//					} 
+//					if (database.seatlist.get(i).getBlankSeat() == 9) {
+//						System.out.print("  \t"); // 없는 자리일 경우 빈칸으로 출력
+//					} 
+//				}
+//				if(database.seatlist.get(i).getSeatNum() == totalCol) {
+//					System.out.println();
+//				}
+			
+		}
 	}
 	
 	@Override
 	public int setBlankSeat(String seatChar, int seatNum, int screenId) {
 		int seatid = 0;
 		for (int i = 0; i < database.seatlist.size(); i++) {
-			if (database.seatlist.get(i).getSeatRownumber().equals(seatChar)
-				&& database.seatlist.get(i).getSeatNum() == seatNum  
-				&& database.seatlist.get(i).getScreenId() == screenId) {
-				
-				System.out.println("setBlankSeat = " + database.seatlist.get(i).getBlankSeat());
-				
-				database.seatlist.get(i).setBlankSeat(1);  // 좌석이 예약된 형태로 변경
-				seatid = database.seatlist.get(i).getSeatid();
-				System.out.println("seatid = " + seatid);
-				System.out.println("setBlankSeat = " + database.seatlist.get(i).getBlankSeat());
+			if (database.seatlist.get(i).getScreenId() == screenId
+				&& database.seatlist.get(i).getSeatRownumber().equals(seatChar)
+				&& database.seatlist.get(i).getSeatNum() == seatNum) {
+
+				if (database.seatlist.get(i).getBlankSeat() == 0) {
+					database.seatlist.get(i).setBlankSeat(1);  // 좌석이 예약된 형태로 변경
+					seatid = database.seatlist.get(i).getSeatid();
+				} else if(database.seatlist.get(i).getBlankSeat() == 1) {
+					System.out.println("이미 예약된 좌석입니다.");
+				} else {
+					System.out.println("선택할 수 없는 좌석입니다.");
+				}
 			}
 		}
 
 		return seatid;
 	}
 
+
 }
+
 

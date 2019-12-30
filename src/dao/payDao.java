@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface payDao {
 	
-	void setPayInfo(Map<String, Object> param);
+	void setPayInfo(Map<String, Object> param, String sway);
 
 }

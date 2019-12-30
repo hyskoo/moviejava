@@ -34,18 +34,18 @@ public class SeatServiceImpl implements SeatService {
 	
 
 	@Override
-	public int selectSeat(String SeatId, int screenId) {
+	public int selectSeat(String SeatName, int screenId) {
 		// 사용자가 입력한 값은 String형태의 좌석의 위치이다. 그것을 우리는 id값으로 변환을 해야한다.
-		System.out.println(SeatId.toUpperCase()+" 좌석이 맞습니까? (Y/N)");
+		System.out.println(SeatName.toUpperCase()+" 좌석이 맞습니까? (Y/N)");
 		Scanner scan = new Scanner(System.in);
-		if (SeatId.length() == 2 && scan.nextLine().equalsIgnoreCase("Y")) {
+		String SeatChar = SeatName.substring(0,1).toUpperCase();				// A, B, C와 같은 행의 정보
+		int SeatNum = Integer.parseInt(SeatName.substring(1,2));  // 1 ,2, 3과 같은 열의 정보
+		String yn = scan.nextLine();
+		if (SeatName.length() == 2 && yn.equalsIgnoreCase("Y")) {
 
-			String SeatChar = SeatId.substring(0,1).toUpperCase();				// A, B, C와 같은 행의 정보
-			int SeatNum = Integer.parseInt(SeatId.substring(1,2));  // 1 ,2, 3과 같은 열의 정보
-			
 			return seatDao.setBlankSeat(SeatChar, SeatNum, screenId);
 			
-		} else if (SeatId.length() != 2) {
+		} else if (SeatName.length() != 2) {
 			System.out.println("좌석을 잘못입력하셨습니다. \n 다시 ");
 		} else {
 			System.out.print("다시 ");

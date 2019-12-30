@@ -4,6 +4,6 @@ import java.util.Map;
 
 public interface payService {
 
-	void setPayInfo(Map<String, Object> paramMap);
+	void setPayInfo(Map<String, Object> paramMap, int payWay);
 
 }

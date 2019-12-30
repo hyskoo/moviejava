@@ -26,13 +26,12 @@ public class payDaoImpl implements payDao {
 	int paycnt = 1;
 
 	@Override
-	public void setPayInfo(Map<String, Object> param) {
-		System.out.println(param.keySet());
+	public void setPayInfo(Map<String, Object> param, String sway) {
 		this.paycnt++;
+		System.out.println(sway);
 		PayVO pay = new  PayVO();
-		
 		pay.setPayId(paycnt);
-		pay.setPayWay(String.valueOf(param.get("결제방법")));
+		pay.setPayWay(sway);
 		pay.setPayDate(today);
 		pay.setPayInfo("구매");
 		pay.setPayAdultCnt(Integer.parseInt(String.valueOf(param.get("영화어른수"))));
@@ -44,7 +43,6 @@ public class payDaoImpl implements payDao {
 		pay.setUserId(Session.loginUser.getUserId());
 		
 		database.payList.add(pay);
-		
 	}
 	
 	

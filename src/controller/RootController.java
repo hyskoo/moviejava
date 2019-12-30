@@ -20,7 +20,6 @@ import service.UserService;
 import service.UserServiceImpl;
 import service.payService;
 import service.payServiceImpl;
-import vo.PayVO;
 import data.Session;
 
 public class RootController {
@@ -50,12 +49,8 @@ public class RootController {
 	
 	public static void main(String[] args) {
 		// 회원정보 확인 ->  영화 선택 -> 시간 선택 -> 인원수 선택 -> 좌석 선택 -> 결제창 -> 영수증 출력
-		RootController control = new RootController();
-		control.start();			// 1. 첫시작 로그인화면
-		// 2. 영화 선택 페이지 보여주기
-		// 3. 영화의 시간을 선택한다.
-		
-		
+		new RootController().start() ;
+
 	}
 
 	void start(){
@@ -141,7 +136,6 @@ public class RootController {
 				paramMap.put("영화어린이수", Integer.parseInt(scan.nextLine()));
 
 				getScreenSeat(paramMap);
-				break;
 			}
 		} while (true);
 	}
@@ -150,22 +144,37 @@ public class RootController {
 	private void getScreenSeat(Map<String, Object> param) {
 		Scanner scan = new Scanner(System.in);
 		int cnt = (int) param.get("영화어른수") + (int) param.get("영화청소년수") + (int) param.get("영화어린이수");
+		ArrayList<Integer> seatIdList = new ArrayList<>();
 		do {
-			System.out.println("좌석을 선택해주세요");
-			
-			//사용자가 선택한 상영관의 좌석들을 보여준다.
-			seatService.showSeat((int) param.get("영화 상영관 아이디"));
-			
-			// 사용자가 좌석을 선택한곳의  아이디 값을 가져온다.
-			int seatid = seatService.selectSeat(scan.nextLine(), (int) param.get("영화 상영관 아이디"));
-			
-			
+			if (cnt > 0) {
+				System.out.println("좌석을 선택해주세요");
+				//사용자가 선택한 상영관의 좌석들을 보여준다.
+				seatService.showSeat((int) param.get("영화 상영관 아이디"));
+				
+				// 사용자가 좌석을 선택한곳의  아이디 값을 가져온다.
+				
+				int seatid = seatService.selectSeat(scan.nextLine(), (int) param.get("영화 상영관 아이디"));
+				seatIdList.add(seatid);
+				if (seatid != 0) {
+					cnt--;
+				}
+			}
 			// 결제를 해야한다. 결제정보를 저장한다. 저장은 유저의 아이디 값을 세션에서 가져와서 저장한다.
-//			int seatid = 0;
-//			paramMap.put("좌석아이디", seatid);
-//
-//			payMovie(paramMap);
-		} while (cnt >= 0);
+			
+			if (cnt == 0) {
+				System.out.println("결제를 하시겠습니까? (Y/N)");
+				String yn = scan.nextLine();
+				if (yn.equalsIgnoreCase("Y")) {
+					paramMap.put("좌석아이디", seatIdList);
+					payMovie(paramMap);
+				} else if(yn.equalsIgnoreCase("N")) {
+					System.out.println("결제를 취소합니다.");
+					break;
+				} else {
+					System.out.println("값을 잘못입력하셨습니다.");
+				}
+			}
+		} while (true);
 	}
 
 	
@@ -177,16 +186,15 @@ public class RootController {
 			int payWay = Integer.parseInt(scan.nextLine());
 			
 			if (payWay == 0) {
-				System.out.println("이전화면으로 돌아갑니다.");
+				System.out.println("영화 선택 화면으로 돌아갑니다.");
 				break;
 			} else if (payWay <= 3 || payWay >= 1) {
-				paramMap.put("결제방법", payWay);
-				
-				payservice.setPayInfo(paramMap);
+
+				payservice.setPayInfo(paramMap, payWay);
 				
 				//영수증을 불러온다.
 				getReceiptInfo(param);
-			} else{
+			} else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
 		}while(true);

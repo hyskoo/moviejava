@@ -336,7 +336,7 @@ public class Database {
 	
 	{	
 		PayVO pay = new PayVO();
-		pay.setPayId(0);
+		pay.setPayId(1);
 		pay.setPayWay("현금");
 		pay.setPayDate(today);
 		pay.setPayInfo("구매");
