@@ -379,17 +379,17 @@ public class Database {
 						break;
 					case 2:
 						seat.setSeatLevel(2);
-						seat.setSeatPrice(9500);
+						seat.setSeatPrice(10000);
 						seat.setSeatRownumber("C");
 						break;
 					case 3:
 						seat.setSeatLevel(2);
-						seat.setSeatPrice(9500);
+						seat.setSeatPrice(10000);
 						seat.setSeatRownumber("D");
 						break;
 					case 4:
 						seat.setSeatLevel(3);
-						seat.setSeatPrice(11000);
+						seat.setSeatPrice(12000);
 						seat.setSeatRownumber("E");
 						break;	
 					}

@@ -50,11 +50,17 @@ public class payDaoImpl implements payDao {
 	@Override
 	public int getSeatPrice(Map<String, Object> param) {
 		int price = 0;
+		double discount = 1;
 		ArrayList<Integer> arr = (ArrayList<Integer>) param.get("좌석아이디");
+		if ((int) param.get("영화청소년수") > 0) {
+			discount = 0.8;
+		} else if ((int) param.get("영화어린이수") > 0){
+			discount = 0.6; 
+		}
 		for (int i = 0; i < database.seatlist.size(); i++) {
 			for (int j = 0; j < arr.size(); j++) {
 				if (database.seatlist.get(i).getSeatid() == arr.get(j)) {
-					price += database.seatlist.get(i).getSeatPrice();
+					price += database.seatlist.get(i).getSeatPrice()*discount;
 				}
 			}
 		}
