@@ -3,10 +3,8 @@ package service;
 import java.util.Map;
 import java.util.Scanner;
 
-import vo.PayVO;
 import dao.payDao;
 import dao.payDaoImpl;
-import data.Database;
 import data.Except;
 
 public class payServiceImpl implements payService {
@@ -38,13 +36,17 @@ public class payServiceImpl implements payService {
 			Sway = "페이";
 			break;
 		}
-		System.out.println("입력하신 방법이 " + Sway + "이 맞으십니까? (Y/N)");
-		if (Except.exceptionString(scan.nextLine()).equalsIgnoreCase("Y")) {
-			return paydao.setPayInfo(param, Sway);
-		} else {
-			System.out.println("이전화면으로 돌아갑니다.");
-		}
-		return 0;
+		do {
+			System.out.println("입력하신 방법이 " + Sway + "이(가) 맞으십니까? (Y/N)   0 : 이전화면으로"); //null값이 입력되는 경우가 있음
+			String yn = Except.exceptionString(scan.nextLine());
+			if (yn.equalsIgnoreCase("Y")) {
+				return paydao.setPayInfo(param, Sway); 
+			} else if (yn.equalsIgnoreCase("N") || yn.equalsIgnoreCase("0")) {
+				return 0;
+			} else {
+				System.out.println("값을 잘못입력하셨습니다.");
+			}
+		} while (true);
 	}
 
 	@Override

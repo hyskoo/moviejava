@@ -74,6 +74,9 @@ public class RootController {
 						userService.join();
 						break;
 					}
+				} else if (menu == 9) {
+					System.out.println("시스템 종료");
+					System.exit(0);
 				} else {
 					System.out.println("잘못된 값입니다.");
 				}
@@ -85,40 +88,56 @@ public class RootController {
 		}while(true);
 	}
 	
-	private void movieInfo() {
+	private void movieInfo() {	
 		do {
-			System.out.println("☆★☆★☆★☆★영화 목록☆★☆★☆★☆★");
-			System.out.println("☆★☆★☆★영화를 선택해 주세요☆★☆★");
-			movieService.getMovieName();
-			System.out.println("로그 아웃을 원하시면 9을 입력해주세요");
-			int movieId = Except.exceptionInt(scan.nextLine());
-			if (movieId == 9) {
-				Session.loginUser = null;
-				break;
-			} else if (movieId != 0 && movieId <= movieService.getMoviecnt()){
-				movieService.getMovieInfo(movieId);
-				System.out.println("이 영화를 선택하시겠습니까? (Y/N)");
-				if (Except.exceptionString(scan.nextLine()).equalsIgnoreCase("Y")) {
-					getMovieSchedule(movieId);
+			if (Session.loginUser != null) {
+				System.out.println("☆★☆★☆★☆★영화 목록☆★☆★☆★☆★");
+				System.out.println("☆★☆★☆★영화를 선택해 주세요☆★☆★");
+				movieService.getMovieName();
+				System.out.println("로그 아웃을 원하시면 9을 입력해주세요");
+				int movieId = Except.exceptionInt(scan.nextLine());
+				if (movieId == 9) {
+					Session.loginUser = null;
 					break;
+				} else if (movieId != 0 && movieId > 0 && movieId <= movieService.getMoviecnt()){
+					do {
+						movieService.getMovieInfo(movieId);
+						System.out.println("이 영화를 선택하시겠습니까? (Y/N)");
+						String yn = Except.exceptionString(scan.nextLine());
+						if (yn.equalsIgnoreCase("Y")) {
+							getMovieSchedule(movieId);
+							break;
+						} else if (yn.equalsIgnoreCase("N")) {
+							System.out.println("영화선택을 취소하셨습니다. \n");
+							break;
+						} else {
+							System.out.println("값을 잘못입력하셨습니다. 다시 입력해주세요 \n");
+						} 
+					} while (true);
+				} else {
+					System.out.println("값을 잘못입력하셨습니다. 다시 입력해주세요 \n");
 				}
 			} else {
-				System.out.println("값을 잘못입력하셨습니다. 다시 입력해주세요 \n");
-			} 
+				System.out.println("로그인이 필요한 기능입니다.");
+				break;
+			}
 		} while(true);
 	}
 	
 	private void getMovieSchedule(int movieId) {
 		do {
-			System.out.println("영화의 상영관을 선택해주세요. 영화를 잘못선택했으면 0을 입력해주세요");
+			System.out.println("영화의 상영관을 선택해주세요.  0 : 이전으로 돌아가기 9: 로그아웃");
 			// 해당영화의 시간 전체 출력
 			movieSchService.getMovieSchedule(movieId);
 			int screenMoiveId = Except.exceptionInt(scan.nextLine());
-			
+			//상영관 아이디 일치여부 확인 필요
 			if (screenMoiveId == 0) {
 				break;
-			}
-			System.out.println(movieSchService.getOneMovieInfo(movieId, screenMoiveId) + "(이)가 맞습니까? (Y/N)");
+			} else if (screenMoiveId == 9) {
+				Session.loginUser = null;
+				break;
+			} 
+			System.out.println(movieSchService.getOneMovieInfo(movieId, screenMoiveId) + "(이)가 맞습니까? (Y/N)  0 : 이전으로 돌아가기");
 			
 			
 			// 해당 영화의 상영시간 아이디를 뽑아온다. 
@@ -126,7 +145,8 @@ public class RootController {
 			// 영화의 상영관 아이디를 뽑아온다.
 			int screenId = movieSchService.getScreenId(movieId, screenMoiveId);
 			
-			if (Except.exceptionString(scan.nextLine()).equalsIgnoreCase("y")) {
+			String yn = Except.exceptionString(scan.nextLine());
+			if (yn.equalsIgnoreCase("y")) {
 				paramMap.put("영화 아이디", movieId);
 				paramMap.put("영화 상영시간 아이디", movieSchId);
 				paramMap.put("영화 상영관 아이디", screenId);
@@ -143,6 +163,8 @@ public class RootController {
 
 				getScreenSeat(paramMap);
 				break;
+			} else if (Except.exceptionInt(yn) == 0) {
+				System.out.println("이전으로 돌아갑니다.");
 			}
 		} while (true);
 	}
@@ -168,14 +190,18 @@ public class RootController {
 			// 결제를 해야한다. 결제정보를 저장한다. 저장은 유저의 아이디 값을 세션에서 가져와서 저장한다.
 			
 			if (cnt == 0) {
-				System.out.println("결제를 하시겠습니까? (Y/N)");
+				seatService.showSeat((int) param.get("영화 상영관 아이디"));
+				System.out.println("결제를 하시겠습니까? (Y/N)  0 : 이전으로 돌아가기");
 				String yn = Except.exceptionString(scan.nextLine());
 				if (yn.equalsIgnoreCase("Y")) {
 					paramMap.put("좌석아이디", seatIdList);
 					payMovie(paramMap);
 					break;
 				} else if(yn.equalsIgnoreCase("N")) {
-					System.out.println("결제를 취소합니다.");
+					System.out.println("결제를 취소합니다. 영화 선택 화면으로 돌아갑니다.");
+					break;
+				} else if (yn.equalsIgnoreCase("0")) {
+					System.out.println("영화 선택으로 돌아갑니다.");
 					break;
 				} else {
 					System.out.println("값을 잘못입력하셨습니다.");
@@ -192,16 +218,18 @@ public class RootController {
 			System.out.println("결제 방식을 선택해주세요 \n"
 					+ "1. 카드 2. 현금 3. 페이  0.이전화면으로");
 			int payWay = Except.exceptionInt(scan.nextLine());
-			
 			if (payWay == 0) {
 				System.out.println("영화 선택 화면으로 돌아갑니다.");
 				break;
-			} else if (payWay <= 3 || payWay >= 1) {
+			} else if (payWay <= 3 && payWay >= 1) {
 				int payId = payservice.setPayInfo(paramMap, payWay);
-				param.put("결제 아이디", payId);
-				//영수증을 불러온다.
-				getReceiptInfo(param, payWay);
-				break;
+				if (payId != 0) {
+					param.put("결제 아이디", payId);
+					getReceiptInfo(param, payWay);
+					break;
+				} else {
+					System.out.println("이전화면으로 돌아갑니다.");
+				}
 			} else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
@@ -227,13 +255,17 @@ public class RootController {
 			if (yn.equalsIgnoreCase("y")) {
 				System.out.println("포인트를 얼마 사용하시겠습니까?");
 				point = Except.exceptionInt(scan.nextLine());
+				receiptService.getReceipt(param, point, payWay,inputMoney);
+				Session.loginUser = null;
+				break;
 			} else if (yn.equalsIgnoreCase("N")) {
 				point = 0;
+				receiptService.getReceipt(param, point, payWay,inputMoney);
+				Session.loginUser = null;
+				break;
 			} else {
 				System.out.println("잘못된 값을 입력하셨습니다.");
 			}
-			receiptService.getReceipt(param, point, payWay,inputMoney);
-			break;
 		} while (true);
 	}
 

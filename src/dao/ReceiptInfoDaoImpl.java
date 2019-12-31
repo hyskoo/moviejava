@@ -91,7 +91,7 @@ public class ReceiptInfoDaoImpl implements ReceiptInfoDao {
 				System.out.println("금액이 부족합니다.");
 			}
 		}else if (payWay != 2) {
-			money = (int) param.get("총금액") + point ;
+			money = (int) param.get("총금액") - point ;
 			System.out.println("결제 금액 : " + money);
 		}  else {
 			System.out.println("값을 잘못입력하셨습니다.");
