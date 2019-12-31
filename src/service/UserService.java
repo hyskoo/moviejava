@@ -6,5 +6,7 @@ public interface UserService {
 
 	void login();
 
+	void info();
+
 
 }

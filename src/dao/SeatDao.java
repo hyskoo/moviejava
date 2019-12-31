@@ -6,5 +6,5 @@ public interface SeatDao {
 
 	int setBlankSeat(String seatChar, int seatNum, int screenId);
 
-
+	void InputPrice();
 }

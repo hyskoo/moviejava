@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import service.AdminService;
+import service.AdminServiceImpl;
 import service.MovieScheduleService;
 import service.MovieScheduleServiceImpl;
 import service.MovieService;
@@ -43,7 +45,7 @@ public class RootController {
 	SeatService seatService = SeatServiceImpl.getInstance();//좌석관련 서비스 호출
 	payService payservice = payServiceImpl.getInstance();
 	ReceiptInfoService receiptService = ReceiptInfoServiceImpl.getInstance();
-	
+	AdminService adminService = AdminServiceImpl.getInstance();
 	
 	// 파라미터를 담기 위한 맵
 	Map<String, Object> paramMap = new HashMap<>();
@@ -68,24 +70,50 @@ public class RootController {
 					case 1: //로그인 페이지
 						System.out.println("로그인 페이지 입니다.");
 						userService.login();
-						break;				// swith의 break로 do{ }while 반복문을 break하는것이 아니다.
+						break;				// switch의 break로 do{ }while 반복문을 break하는것이 아니다.
 					case 2: //회원가입 페이지
 						System.out.println("회원가입 페이지 입니다. 화면에 나오는 순서대로 입력해주세요.");
 						userService.join();
 						break;
 					}
-				} else if (menu == 9) {
-					System.out.println("시스템 종료");
-					System.exit(0);
 				} else {
 					System.out.println("잘못된 값입니다.");
 				}
+			} else if (Session.loginUser.getUserLevel() >= 90) {
+				adminPerfom();
 			} else if (Session.loginUser != null) {
 				movieInfo(); //  2. 영화 선택 페이지 보여주기
-			} else if (Session.loginUser.getUserLevel() >= 90) {
-				System.out.println("관리자 기능입니다.");
 			} 
 		}while(true);
+	}
+	private void adminPerfom() {
+			
+		do{
+			System.out.println("----------관리자 기능----------");
+			System.out.println("수행하실 기능을 선택해 주세요.\r\n1.회원 관리\r\n2.영화 관리\r\n3.상영관 관리\r\n4.영화 예매\r\n9.로그 아웃");
+			int	choice = Except.exceptionInt(scan.nextLine());
+			switch (choice){
+			case 9://로그아웃
+			Session.loginUser = null;
+			System.out.println("처음 화면으로 돌아갑니다.");
+			break;
+			case 1:// 회원 관리
+			userService.info();
+			break;
+			case 2:// 영화 관리
+				adminService.adminPage();
+			break;
+			case 3://상영관 관리
+				seatService.seatLevelPrice();	
+			break;
+			case 4://관리자도 영화 예매 할 수 있도록 설정
+			movieInfo();
+			break;
+			default:
+				System.out.println("잘못 입력하셨습니다. 선택창으로 다시 돌아갑니다.\r");
+			}
+			if(Session.loginUser == null) break;
+		}while (true);	
 	}
 	
 	private void movieInfo() {	

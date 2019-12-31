@@ -1,6 +1,11 @@
 package dao;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import vo.Screen_seatVO;
 import data.Database;
+import data.Except;
 
 public class SeatDaoImpl implements SeatDao {
 	private static SeatDaoImpl instance;
@@ -15,7 +20,7 @@ public class SeatDaoImpl implements SeatDao {
 	}
 
 	Database database = Database.getInstance();
-
+	Scanner scan = new Scanner(System.in);
 	@Override
 	public void showScreenSeat(int screenId) {
 		int totalSeat = 0; // 해당 상영관의 좌석의 총갯수를 구하자 
@@ -47,30 +52,7 @@ public class SeatDaoImpl implements SeatDao {
 					}
 					if(database.seatlist.get(i).getSeatNum() == totalCol) System.out.println();
 				}	
-			}
-							
-//				if (database.seatlist.get(i).getSeatNum() <= totalCol) {
-//					String seatNumber = database.seatlist.get(i).getSeatRownumber() + database.seatlist.get(i).getSeatNum();
-//					System.out.print(seatNumber + "\t");
-//					if(database.seatlist.get(i).getSeatNum() == totalCol) {
-//						System.out.println();
-//					}
-//				}
-//				for (int j = 0; j < totalCol; j++) {
-//					if (database.seatlist.get(i).getBlankSeat() == 0) {
-//						System.out.print("□ \t"); // 공석일 경우 □ 출력
-//					} 
-//					if (database.seatlist.get(i).getBlankSeat() == 1) {
-//						System.out.print("■ \t"); // 예약석일 경우 ■ 출력
-//					} 
-//					if (database.seatlist.get(i).getBlankSeat() == 9) {
-//						System.out.print("  \t"); // 없는 자리일 경우 빈칸으로 출력
-//					} 
-//				}
-//				if(database.seatlist.get(i).getSeatNum() == totalCol) {
-//					System.out.println();
-//				}
-			
+			}	
 		}
 	}
 	
@@ -95,7 +77,48 @@ public class SeatDaoImpl implements SeatDao {
 
 		return seatid;
 	}
-
+	@Override
+	public void InputPrice() {
+		ArrayList<Integer> seatInfo = new ArrayList<>();
+		ArrayList<Integer> seatPrice = new ArrayList<>();
+		
+		for(int i = 0; i < database.seatlist.size(); i++){
+			Screen_seatVO seat = database.seatlist.get(i);	
+			if(!seatInfo.contains(seat.getSeatLevel())){
+				seatInfo.add(seat.getSeatLevel());
+			}
+			if(!seatPrice.contains(seat.getSeatPrice())){
+				seatPrice.add(seat.getSeatPrice());
+			}
+		}
+		System.out.println("좌석 LEVEL : "+seatInfo);   
+		System.out.println("레벨당 가격 : "+seatPrice);
+		System.out.println("수정할 좌석레벨을 선택하시오");
+		int priceInfo = 0;
+		int level = Except.exceptionInt(scan.nextLine());
+		for(int i = 0; i < database.seatlist.size(); i++){
+			Screen_seatVO seat = database.seatlist.get(i);	
+			if(level == seat.getSeatLevel()){
+				priceInfo = seat.getSeatPrice();
+			}
+		}
+		System.out.println(priceInfo+"원");
+		System.out.println("수정할 좌석의 가격을 입력하시오 ");
+		
+		int price = Except.exceptionInt(scan.nextLine());
+		System.out.println("입력한 값을 저장하시겠습니까? y/n");
+		String answer = Except.exceptionString(scan.nextLine());
+		if(answer.equalsIgnoreCase("y")){
+			for(int i = 0; i <database.seatlist.size(); i++){
+				Screen_seatVO seat = database.seatlist.get(i);
+				if(seat.getSeatLevel() == level){
+					seat.setSeatPrice(price);
+				}
+			}
+			System.out.println("업데이트되었습니다");
+			
+		}
+	}
 
 }
 

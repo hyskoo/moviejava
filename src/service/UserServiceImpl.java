@@ -103,7 +103,54 @@ public class UserServiceImpl implements UserService {
 		}
 	}
 	
-	
+	@Override
+	public void info() { //회원 관리 페이지
+		boolean flag = true;
+		do{	
+			System.out.println("회원 관리 페이지 입니다. 원하시는 항목을 선택해 주세요.\r\n1.회원 목록\r\n2.회원 정보 관리\r\n9.관리자 기능으로 돌아가기");
+			int sel = Except.exceptionInt(scan.nextLine());
+			
+			switch(sel){
+			case 9:
+				flag = false;
+				break;
+			case 1:	//회원 목록 출력 메서드
+				userDao.showUser();
+
+				break;
+			case 2: //회원 정보 수정 메서드
+				System.out.println("회원 정보 관리 페이지 입니다. ID를 검색해 주세요.");
+				HashMap<String, String> param = new HashMap<String, String>();
+				boolean roll = false;
+				do {
+					String id = Except.exceptionString(scan.nextLine());
+					param.put("ID", id);
+					UserVO user = userDao.choiceUser(param);
+					if(user == null){
+						System.out.println("없는 유저입니다.다시 검색해 주세요.");
+
+						roll = true;
+
+					}else{
+						System.out.println(id + " 님을 관리하는 페이지로 이동합니다.");
+						System.out.println("1.회원 정보 수정\t2.회원 삭제\r\n9.회원 관리 페이지로 돌아가기");
+						int select = Except.exceptionInt(scan.nextLine());
+						if(select == 1){
+							userDao.changeUser(param);
+							break;
+						}else if(select == 2){
+							userDao.deleteUser(param);
+							break;
+						}else if(select == 9){
+							break;
+							}
+						}
+					} while(roll);
+					break;
+				}
+		
+			}while(flag);	
+		}
 	
 
 	

@@ -13,9 +13,13 @@ public interface UserDao {
 
 	UserVO selectUser(HashMap<String, String> param);
 
+	UserVO choiceUser(HashMap<String, String> param);
 	
+	void changeUser(HashMap<String, String> param);
+
+	void deleteUser(HashMap<String, String> param);
 	
-	
+	void showUser();
 	
 	
 	
