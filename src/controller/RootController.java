@@ -20,6 +20,7 @@ import service.UserService;
 import service.UserServiceImpl;
 import service.payService;
 import service.payServiceImpl;
+import data.Except;
 import data.Session;
 
 public class RootController {
@@ -46,7 +47,7 @@ public class RootController {
 	
 	// 파라미터를 담기 위한 맵
 	Map<String, Object> paramMap = new HashMap<>();
-	
+	Scanner scan = new Scanner(System.in);
 	public static void main(String[] args) {
 		// 회원정보 확인 ->  영화 선택 -> 시간 선택 -> 인원수 선택 -> 좌석 선택 -> 결제창 -> 영수증 출력
 		new RootController().start() ;
@@ -57,20 +58,24 @@ public class RootController {
 		int menu;
 		System.out.println("해당서비스는 로그인이 필요한 서비스 입니다.");
 		do{
-			Scanner scan = new Scanner(System.in);
-			
 			if (Session.loginUser == null){
 				System.out.println("1.로그인 \t 2. 회원가입 \t ");
-				menu = Integer.parseInt(scan.nextLine());
-				switch (menu) {
-				case 1: //로그인 페이지
-					System.out.println("로그인 페이지 입니다.");
-					userService.login();
-					break;				// swith의 break로 do{ }while 반복문을 break하는것이 아니다.
-				case 2: //회원가입 페이지
-					System.out.println("회원가입 페이지 입니다. 화면에 나오는 순서대로 입력해주세요.");
-					userService.join();
-					break;
+				menu = Except.exceptionInt(scan.nextLine());
+				if (menu == 0) {
+					System.out.println("잘못된 값입니다. 값을 다시 입력해주세요");
+				} else if (menu == 1 || menu == 2) {
+					switch (menu) {
+					case 1: //로그인 페이지
+						System.out.println("로그인 페이지 입니다.");
+						userService.login();
+						break;				// swith의 break로 do{ }while 반복문을 break하는것이 아니다.
+					case 2: //회원가입 페이지
+						System.out.println("회원가입 페이지 입니다. 화면에 나오는 순서대로 입력해주세요.");
+						userService.join();
+						break;
+					}
+				} else {
+					System.out.println("잘못된 값입니다.");
 				}
 			} else if (Session.loginUser != null) {
 				movieInfo(); //  2. 영화 선택 페이지 보여주기
@@ -82,60 +87,59 @@ public class RootController {
 	
 	private void movieInfo() {
 		do {
-			Scanner s = new Scanner(System.in);
 			System.out.println("☆★☆★☆★☆★영화 목록☆★☆★☆★☆★");
 			System.out.println("☆★☆★☆★영화를 선택해 주세요☆★☆★");
 			movieService.getMovieName();
-			
-			System.out.println("로그 아웃을 원하시면 0을 입력해주세요");
-			int movieId = Integer.parseInt(s.nextLine());
-			if (movieId == 0) {
+			System.out.println("로그 아웃을 원하시면 9을 입력해주세요");
+			int movieId = Except.exceptionInt(scan.nextLine());
+			if (movieId == 9) {
 				Session.loginUser = null;
 				break;
-			} else{
+			} else if (movieId != 0 && movieId <= movieService.getMoviecnt()){
 				movieService.getMovieInfo(movieId);
 				System.out.println("이 영화를 선택하시겠습니까? (Y/N)");
-				if (s.nextLine().equalsIgnoreCase("Y")) {
+				if (Except.exceptionString(scan.nextLine()).equalsIgnoreCase("Y")) {
 					getMovieSchedule(movieId);
 					break;
 				}
-			}
+			} else {
+				System.out.println("값을 잘못입력하셨습니다. 다시 입력해주세요 \n");
+			} 
 		} while(true);
 	}
 	
 	private void getMovieSchedule(int movieId) {
-		Scanner scan = new Scanner(System.in);
 		do {
 			System.out.println("영화의 상영관을 선택해주세요. 영화를 잘못선택했으면 0을 입력해주세요");
 			// 해당영화의 시간 전체 출력
 			movieSchService.getMovieSchedule(movieId);
-			String screenMoiveId = scan.nextLine();
-			if (Integer.parseInt(screenMoiveId) == 0) {
+			int screenMoiveId = Except.exceptionInt(scan.nextLine());
+			
+			if (screenMoiveId == 0) {
 				break;
 			}
-			
 			System.out.println(movieSchService.getOneMovieInfo(movieId, screenMoiveId) + "(이)가 맞습니까? (Y/N)");
 			
 			
-			// 해당 영화의 상영시간 아이디를 뽑아온다.
+			// 해당 영화의 상영시간 아이디를 뽑아온다. 
 			int movieSchId= movieSchService.getMovieSchId(movieId, screenMoiveId);
 			// 영화의 상영관 아이디를 뽑아온다.
 			int screenId = movieSchService.getScreenId(movieId, screenMoiveId);
 			
-			if (scan.nextLine().equalsIgnoreCase("y")) {
+			if (Except.exceptionString(scan.nextLine()).equalsIgnoreCase("y")) {
 				paramMap.put("영화 아이디", movieId);
 				paramMap.put("영화 상영시간 아이디", movieSchId);
 				paramMap.put("영화 상영관 아이디", screenId);
 				
 				System.out.println("관람을 할 인원을 선택해주세요.");
 				System.out.println("성인은 몇명 입니까?");
-				paramMap.put("영화어른수", Integer.parseInt(scan.nextLine()));
+				paramMap.put("영화어른수", Except.exceptionInt(scan.nextLine()));
 				
 				System.out.println("청소년은 몇명 입니까?");
-				paramMap.put("영화청소년수", Integer.parseInt(scan.nextLine()));
+				paramMap.put("영화청소년수", Except.exceptionInt(scan.nextLine()));
 				
 				System.out.println("어린이는 몇명 입니까?");
-				paramMap.put("영화어린이수", Integer.parseInt(scan.nextLine()));
+				paramMap.put("영화어린이수", Except.exceptionInt(scan.nextLine()));
 
 				getScreenSeat(paramMap);
 				break;
@@ -145,7 +149,6 @@ public class RootController {
 	
 	// 자리 출력 및 입력 메소드 이전것
 	private void getScreenSeat(Map<String, Object> param) {
-		Scanner scan = new Scanner(System.in);
 		int cnt = (int) param.get("영화어른수") + (int) param.get("영화청소년수") + (int) param.get("영화어린이수");
 		ArrayList<Integer> seatIdList = new ArrayList<>();
 		do {
@@ -156,7 +159,7 @@ public class RootController {
 				
 				// 사용자가 좌석을 선택한곳의  아이디 값을 가져온다.
 				
-				int seatid = seatService.selectSeat(scan.nextLine(), (int) param.get("영화 상영관 아이디"));
+				int seatid = seatService.selectSeat(Except.exceptionString(scan.nextLine()), (int) param.get("영화 상영관 아이디"));
 				seatIdList.add(seatid);
 				if (seatid != 0) {
 					cnt--;
@@ -166,7 +169,7 @@ public class RootController {
 			
 			if (cnt == 0) {
 				System.out.println("결제를 하시겠습니까? (Y/N)");
-				String yn = scan.nextLine();
+				String yn = Except.exceptionString(scan.nextLine());
 				if (yn.equalsIgnoreCase("Y")) {
 					paramMap.put("좌석아이디", seatIdList);
 					payMovie(paramMap);
@@ -183,22 +186,21 @@ public class RootController {
 
 	
 	private void payMovie(Map<String, Object> param) {
-		Scanner scan = new Scanner(System.in);
 		do{	
 			System.out.println("총 결제 금액은 " + payservice.getSeatPrice(param) + "입니다.");
 			param.put("총금액", payservice.getSeatPrice(param));
 			System.out.println("결제 방식을 선택해주세요 \n"
 					+ "1. 카드 2. 현금 3. 페이  0.이전화면으로");
-			String payWay = scan.nextLine();
+			int payWay = Except.exceptionInt(scan.nextLine());
 			
-			if (Integer.parseInt(payWay) == 0) {
+			if (payWay == 0) {
 				System.out.println("영화 선택 화면으로 돌아갑니다.");
 				break;
-			} else if (Integer.parseInt(payWay) <= 3 || Integer.parseInt(payWay) >= 1) {
-				int payId = payservice.setPayInfo(paramMap, Integer.parseInt(payWay));
+			} else if (payWay <= 3 || payWay >= 1) {
+				int payId = payservice.setPayInfo(paramMap, payWay);
 				param.put("결제 아이디", payId);
 				//영수증을 불러온다.
-				getReceiptInfo(param, Integer.parseInt(payWay));
+				getReceiptInfo(param, payWay);
 				break;
 			} else {
 				System.out.println("잘못 입력하셨습니다.");
@@ -211,21 +213,20 @@ public class RootController {
 	
 	// 영수증 출력용 메소드
 	private void getReceiptInfo(Map<String, Object> param, int payWay) {
-		Scanner scan = new Scanner(System.in);
 		int point = 0;
 		String yn = null;
 		int inputMoney = 0;
 		do {
 			if (payWay == 2) {
 				System.out.println("금액을 투입해주세요.");
-				inputMoney = Integer.parseInt(scan.nextLine()); // 사용자가 입력한 금액
+				inputMoney = Except.exceptionInt(scan.nextLine()); // 사용자가 입력한 금액
 			}
 			System.out.println("회원의 현재포인트는 " + Session.loginUser.getUserPoint() + "입니다.");
 			System.out.println("포인트를 사용하시겠습니까? (Y/N)");
-			yn = scan.nextLine();
+			yn = Except.exceptionString(scan.nextLine());
 			if (yn.equalsIgnoreCase("y")) {
 				System.out.println("포인트를 얼마 사용하시겠습니까?");
-				point = Integer.parseInt(scan.nextLine());
+				point = Except.exceptionInt(scan.nextLine());
 			} else if (yn.equalsIgnoreCase("N")) {
 				point = 0;
 			} else {

@@ -1,7 +1,5 @@
 package service;
 
-import java.util.Scanner;
-
 import dao.MovieScheduleDao;
 import dao.MovieScheduleDaoImpl;
 
@@ -32,19 +30,19 @@ public class MovieScheduleServiceImpl implements MovieScheduleService {
 	}
 
 	@Override
-	public String getOneMovieInfo(int movieId, String screenMoiveId) {
+	public String getOneMovieInfo(int movieId, int screenMoiveId) {
 		
 		return movieSchDao.getOneMovieInfo(movieId, screenMoiveId); 
 	}
 
 	@Override
-	public int getMovieSchId(int movieId, String screenMoiveId) {
+	public int getMovieSchId(int movieId, int screenMoiveId) {
 		
 		return movieSchDao.getMovieSchId(movieId, screenMoiveId); 
 	}
 
 	@Override
-	public int getScreenId(int movieId, String screenMoiveId) {
+	public int getScreenId(int movieId, int screenMoiveId) {
 
 		return movieSchDao.getScreenId(movieId, screenMoiveId);
 	}

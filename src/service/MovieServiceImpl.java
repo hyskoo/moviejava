@@ -55,11 +55,13 @@ public class MovieServiceImpl implements MovieService {
 		System.out.println("영화 개봉일자 : \t" + movieInfo.get(movieNo - 1).getMovieOpenday());	//영화 개봉일 출력
 		System.out.println("☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★");
 		
-		System.out.println("영화관 폐막일자 : \t" + movieInfo.get(movieNo - 1).getMovieCloseday());
-		System.out.println("☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★");
-		
 		System.out.println("영화 런닝타임 : \t" + movieInfo.get(movieNo - 1).getMovieRunningTime() + "분");//영화 RunningTime 출력
 		System.out.println("☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★☆★");
+	}
+
+	@Override
+	public int getMoviecnt() {
+		return movieDao.getMovieCnt();
 	}
 
 }

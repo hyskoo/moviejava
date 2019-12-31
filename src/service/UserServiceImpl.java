@@ -8,6 +8,7 @@ import java.util.Scanner;
 import vo.UserVO;
 import dao.UserDao;
 import dao.UserDaoImpl;
+import data.Except;
 import data.Session;
 
 public class UserServiceImpl implements UserService {
@@ -26,10 +27,11 @@ public class UserServiceImpl implements UserService {
 	
 	/**
  	 * @author 김령환
- 	 * @brief DaoImpl을 호출하여 값, 객채들을 반환 받는다.
+ 	 * @brief DaoImpl을 호출하여 값, 객채들을 반환 받는다. Scanner로 사용자에게 값을 입력받는다. today는 현재 날짜를 구하기 위한 것
  	 */
 	UserDao userDao = UserDaoImpl.getInstance();
-
+	Scanner scan = new Scanner(System.in);
+	Date today = new Date();
 	/** 회원가입
  	 * @author 김령환
  	 * @brief 사용자에게 개인정보를 입력받아 아이디 중복체크를 하고 가입을 시킨다. 
@@ -38,19 +40,16 @@ public class UserServiceImpl implements UserService {
  	 */
 	@Override
 	public void join() {
-		Scanner scan = new Scanner(System.in);
-		Date today = new Date();
-		
 		System.out.print("아이디 : ");
-		String id = scan.nextLine();
+		String id = Except.exceptionString(scan.nextLine());
 		System.out.print("비밀번호 : ");
-		String pw = scan.nextLine();
+		String pw = Except.exceptionString(scan.nextLine());
 		System.out.print("이름 : ");
-		String name = scan.nextLine();
+		String name = Except.exceptionString(scan.nextLine());
 		System.out.print("전화번호 : ");
-		String phone = scan.nextLine();
+		String phone = Except.exceptionString(scan.nextLine());
 		System.out.print("나이 : ");
-		String age = scan.nextLine();
+		String age = Except.exceptionString(scan.nextLine());
 		
 		UserVO user = new UserVO();
 		user.setUserId(id);
@@ -78,12 +77,10 @@ public class UserServiceImpl implements UserService {
 	//로그인
 	@Override
 	public void login() {
-		Scanner scan = new Scanner(System.in);
-
 		System.out.print("아이디 : ");
-		String id = scan.nextLine();
+		String id = Except.exceptionString(scan.nextLine());
 		System.out.print("비밀번호 : ");
-		String pw = scan.nextLine();
+		String pw = Except.exceptionString(scan.nextLine());
 		
 		HashMap<String, String> param = new HashMap<String, String>();
 		param.put("ID", id);

@@ -4,10 +4,10 @@ public interface MovieScheduleDao {
 
 	void getMoiveScheduleInfo(int movieNo);
 
-	String getOneMovieInfo(int movieId, String screenMoiveId);
+	String getOneMovieInfo(int movieId, int screenMoiveId);
 
-	int getMovieSchId(int movieId, String screenMoiveId);
+	int getMovieSchId(int movieId, int screenMoiveId);
 
-	int getScreenId(int movieId, String screenMoiveId);
+	int getScreenId(int movieId, int screenMoiveId);
 
 }

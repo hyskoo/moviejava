@@ -5,6 +5,7 @@ import java.util.Scanner;
 import vo.ScreenVO;
 import dao.ScreenDao;
 import dao.ScreenDaoImpl;
+import data.Except;
 
 public class ScreenServiceImpl implements ScreenService {
 
@@ -30,10 +31,10 @@ public class ScreenServiceImpl implements ScreenService {
 	ScreenDao screenDao = ScreenDaoImpl.getInstance();
 	@Override
 	public void getScreenInfo() {
-		Scanner s = new Scanner(System.in);	//상영관을 입력하여 영화관에 있는 상영관을 조회한다.
+		Scanner scan = new Scanner(System.in);	//상영관을 입력하여 영화관에 있는 상영관을 조회한다.
 		
 		System.out.println("상영관을 검색해 주세요.");
-		String name = s.nextLine();
+		String name = Except.exceptionString(scan.nextLine());
 		
 		ScreenVO screen = new ScreenVO();
 		screen.setScreenName(name);

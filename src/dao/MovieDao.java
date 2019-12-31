@@ -12,4 +12,6 @@ public interface MovieDao {
 
 	void getMovieName();
 
+	int getMovieCnt();
+
 }

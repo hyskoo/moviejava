@@ -7,6 +7,7 @@ import vo.PayVO;
 import dao.payDao;
 import dao.payDaoImpl;
 import data.Database;
+import data.Except;
 
 public class payServiceImpl implements payService {
 
@@ -38,7 +39,7 @@ public class payServiceImpl implements payService {
 			break;
 		}
 		System.out.println("입력하신 방법이 " + Sway + "이 맞으십니까? (Y/N)");
-		if (scan.nextLine().equalsIgnoreCase("Y")) {
+		if (Except.exceptionString(scan.nextLine()).equalsIgnoreCase("Y")) {
 			return paydao.setPayInfo(param, Sway);
 		} else {
 			System.out.println("이전화면으로 돌아갑니다.");

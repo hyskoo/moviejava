@@ -1,5 +1,7 @@
 package dao;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import data.Database;
@@ -24,28 +26,32 @@ public class MovieDaoImpl implements MovieDao {
 	 * 
 	 * @brief Database_movieinfo를 호출하여 데이터 베이스 안에 있는 영화 제목을 조회 및 반환 하기 위해서 선언한다.
 	 */ 
-	Database movieInfo = Database.getInstance();
+	Database database = Database.getInstance();
 
 
 	@Override
 	public void getMovieName() {
-		for (int i = 0; i < movieInfo.mv_list.size(); i++) {
-			System.out.println(movieInfo.mv_list.get(i).getMovieId() + ". " + movieInfo.mv_list.get(i).getMovieName());
+		for (int i = 0; i < database.mv_list.size(); i++) {
+			System.out.println(database.mv_list.get(i).getMovieId() + ". " + database.mv_list.get(i).getMovieName());
 		}
 	}
 
 	@Override
 	public void getMovieInfo(int movieNo) {
-		for (int i = 0; i < movieInfo.mv_list.size(); i++) {
+		for (int i = 0; i < database.mv_list.size(); i++) {
 			if (movieNo == i) {
-				System.out.println(movieInfo.mv_list);
+				System.out.println(database.mv_list);
 			}			
 		}
 	}
 
 	@Override
 	public ArrayList<MovieInfoVO> selectMovieInfo() {
+		return database.mv_list;
+	}
 
-		return movieInfo.mv_list;
+	@Override
+	public int getMovieCnt() {
+		return database.mv_list.size();
 	}
 }

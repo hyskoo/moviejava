@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import dao.SeatDao;
 import dao.SeatDaoImpl;
+import data.Except;
 
 public class SeatServiceImpl implements SeatService {
 
@@ -40,7 +41,7 @@ public class SeatServiceImpl implements SeatService {
 		Scanner scan = new Scanner(System.in);
 		String SeatChar = SeatName.substring(0,1).toUpperCase();				// A, B, C와 같은 행의 정보
 		int SeatNum = Integer.parseInt(SeatName.substring(1,2));  // 1 ,2, 3과 같은 열의 정보
-		String yn = scan.nextLine();
+		String yn = Except.exceptionString(scan.nextLine());
 		if (SeatName.length() == 2 && yn.equalsIgnoreCase("Y")) {
 
 			return seatDao.setBlankSeat(SeatChar, SeatNum, screenId);
