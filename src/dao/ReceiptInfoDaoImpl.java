@@ -91,17 +91,15 @@ public class ReceiptInfoDaoImpl implements ReceiptInfoDao {
 				System.out.println("금액이 부족합니다.");
 			}
 		}else if (payWay != 2) {
-			money = inputMoney - (int) param.get("총금액") + point;
+			money = (int) param.get("총금액") + point ;
 			System.out.println("결제 금액 : " + money);
 		}  else {
 			System.out.println("값을 잘못입력하셨습니다.");
 		}
 		
-		System.out.println("사용후 남은 포인트 : " + Session.loginUser.getUserPoint()
-				+ "적립량  : " +  (int) param.get("총금액") / (100 - Session.loginUser.getUserLevel())
-				+ "최종 포인트 : " + Session.loginUser.getUserPoint() + (int) param.get("총금액") / (100 - Session.loginUser.getUserLevel()));
-		
-		// String형태인것 수정하자
+		System.out.println("사용후 남은 포인트 : " + Session.loginUser.getUserPoint() + "\n"
+				+ " - 적립량  : " +  (int) param.get("총금액") / (100 - Session.loginUser.getUserLevel()) + "\n"
+				+ " - 최종 포인트 : " + (Session.loginUser.getUserPoint() + (int) param.get("총금액") / (100 - Session.loginUser.getUserLevel())));
 		Session.loginUser.setUserPoint(Session.loginUser.getUserPoint() + (int) param.get("총금액") / (100 - Session.loginUser.getUserLevel()));
 
 		

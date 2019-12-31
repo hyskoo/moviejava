@@ -97,6 +97,7 @@ public class RootController {
 				System.out.println("이 영화를 선택하시겠습니까? (Y/N)");
 				if (s.nextLine().equalsIgnoreCase("Y")) {
 					getMovieSchedule(movieId);
+					break;
 				}
 			}
 		} while(true);
@@ -137,6 +138,7 @@ public class RootController {
 				paramMap.put("영화어린이수", Integer.parseInt(scan.nextLine()));
 
 				getScreenSeat(paramMap);
+				break;
 			}
 		} while (true);
 	}
@@ -168,6 +170,7 @@ public class RootController {
 				if (yn.equalsIgnoreCase("Y")) {
 					paramMap.put("좌석아이디", seatIdList);
 					payMovie(paramMap);
+					break;
 				} else if(yn.equalsIgnoreCase("N")) {
 					System.out.println("결제를 취소합니다.");
 					break;
@@ -196,6 +199,7 @@ public class RootController {
 				param.put("결제 아이디", payId);
 				//영수증을 불러온다.
 				getReceiptInfo(param, Integer.parseInt(payWay));
+				break;
 			} else {
 				System.out.println("잘못 입력하셨습니다.");
 			}
@@ -209,18 +213,26 @@ public class RootController {
 	private void getReceiptInfo(Map<String, Object> param, int payWay) {
 		Scanner scan = new Scanner(System.in);
 		int point = 0;
+		String yn = null;
 		int inputMoney = 0;
 		do {
 			if (payWay == 2) {
 				System.out.println("금액을 투입해주세요.");
 				inputMoney = Integer.parseInt(scan.nextLine()); // 사용자가 입력한 금액
 			}
-			System.out.println("회원의 현재포인트는 " + Session.loginUser.getUserPoint() + "입니다. 포인트를 얼마사용하시겟습니까?");
-			point = Integer.parseInt(scan.nextLine());
-			receiptService.getReceipt(param, point, payWay,inputMoney);
-			if (point == 0) {
-				break;
+			System.out.println("회원의 현재포인트는 " + Session.loginUser.getUserPoint() + "입니다.");
+			System.out.println("포인트를 사용하시겠습니까? (Y/N)");
+			yn = scan.nextLine();
+			if (yn.equalsIgnoreCase("y")) {
+				System.out.println("포인트를 얼마 사용하시겠습니까?");
+				point = Integer.parseInt(scan.nextLine());
+			} else if (yn.equalsIgnoreCase("N")) {
+				point = 0;
+			} else {
+				System.out.println("잘못된 값을 입력하셨습니다.");
 			}
+			receiptService.getReceipt(param, point, payWay,inputMoney);
+			break;
 		} while (true);
 	}
 
