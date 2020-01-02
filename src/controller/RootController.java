@@ -90,7 +90,7 @@ public class RootController {
 			
 		do{
 			System.out.println("----------관리자 기능----------");
-			System.out.println("수행하실 기능을 선택해 주세요.\r\n1.회원 관리\r\n2.영화 관리\r\n3.상영관 관리\r\n4.영화 예매\r\n9.로그 아웃");
+			System.out.println("수행하실 기능을 선택해 주세요.\r\n1.회원 관리\r\n2.영화 관리\r\n3.상영관 관리\r\n4.영화 예매\r\n9.로그 아웃 \r\n 99.시스템종료 ");
 			int	choice = Except.exceptionInt(scan.nextLine());
 			switch (choice){
 			case 9://로그아웃
@@ -109,6 +109,9 @@ public class RootController {
 			case 4://관리자도 영화 예매 할 수 있도록 설정
 			movieInfo();
 			break;
+			case 99 : 
+				System.exit(0);
+				break;
 			default:
 				System.out.println("잘못 입력하셨습니다. 선택창으로 다시 돌아갑니다.\r");
 			}
