@@ -276,10 +276,10 @@ public class RootController {
 			if (payWay == 2) {
 				System.out.println("금액을 투입해주세요.");
 				inputMoney = Except.exceptionInt(scan.nextLine()); // 사용자가 입력한 금액
-			}
-			if (inputMoney < (int) param.get("총금액")) {
-				System.out.println("금액이 부족합니다.");
-				break;
+				if (inputMoney < (int) param.get("총금액")) {
+					System.out.println("금액이 부족합니다.");
+					break;
+				}
 			}
 			System.out.println("회원의 현재포인트는 " + Session.loginUser.getUserPoint() + "입니다.");
 			System.out.println("포인트를 사용하시겠습니까? (Y/N)");

@@ -105,6 +105,7 @@ public class ReceiptInfoDaoImpl implements ReceiptInfoDao {
 		}
 		
 		int money = 0;
+		System.out.println(payWay + " / ");
 		if (payWay == 2) {
 			if (inputMoney + Session.loginUser.getUserPoint() >= (int) param.get("총금액")) {
 				money = inputMoney - (int) param.get("총금액") + point;
@@ -116,6 +117,7 @@ public class ReceiptInfoDaoImpl implements ReceiptInfoDao {
 		}else if (payWay != 2) {
 			money = (int) param.get("총금액") - point ;
 			System.out.println("결제 금액 : " + money);
+			Session.loginUser.setUserPoint(Session.loginUser.getUserPoint() - point);
 		}  else {
 			System.out.println("값을 잘못입력하셨습니다.");
 		}
