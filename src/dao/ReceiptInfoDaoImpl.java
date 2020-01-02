@@ -1,7 +1,9 @@
 package dao;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Map;
 
 import sun.java2d.pipe.SpanShapeRenderer.Simple;
@@ -22,7 +24,8 @@ public class ReceiptInfoDaoImpl implements ReceiptInfoDao {
 	}
 	
 	Database database = Database.getInstance();
-
+	SimpleDateFormat dateToDate = new SimpleDateFormat("HH:mm");
+	SimpleDateFormat dateToString = new SimpleDateFormat("HH");
 	// 맵으로 값옮겨서하면 너무 힘드므로
 	@Override
 	public void getReceipt(Map<String, Object> param, int point, int payWay, int inputMoney) {
@@ -48,15 +51,35 @@ public class ReceiptInfoDaoImpl implements ReceiptInfoDao {
 		}
 		// 영화 상영종료 시간
 		for (int i = 0; i < database.mv_list.size(); i++) {
-			if (database.mv_list.get(i).getMovieId() == (int) param.get("영화 아이디")) {
-				String minute = "0";
-				if (database.mv_list.get(i).getMovieRunningTime() % 60 < 10) {
-					minute += database.mv_list.get(i).getMovieRunningTime() % 60;
-				} else {
-					minute = ""+database.mv_list.get(i).getMovieRunningTime() % 60;
+			try {
+				Date HM;
+				int start = 0;
+				if (database.mv_list.get(i).getMovieId() == (int) param.get("영화 아이디")) {
+					for (int j = 0; j < database.mSchlist.size(); j++) {
+						if (database.mSchlist.get(j).getmScheduleId() == (int) param.get("영화 상영시간 아이디")) {
+							HM = dateToDate.parse(database.mSchlist.get(j).getmScheduleTime());
+							start = Integer.parseInt(dateToString.format(HM));
+						}
+					}
+					String minute = null;
+					if (database.mv_list.get(i).getMovieRunningTime() % 60 < 10) {
+						minute = "0" + database.mv_list.get(i).getMovieRunningTime() % 60;
+					} else {
+						minute = ""+database.mv_list.get(i).getMovieRunningTime() % 60;
+					}
+					
+					int check = ((database.mv_list.get(i).getMovieRunningTime() / 60) + start);
+					
+					if (check >= 24) {
+						System.out.println("이용");
+						check -= 24;
+					}
+					
+					System.out.print(" ~ " + check + ":" + minute); 
+					System.out.println("\t" + database.mv_list.get(i).getMovieRunningTime() + "분");
 				}
-				System.out.print(" ~ " + database.mv_list.get(i).getMovieRunningTime() / 60 + 9 + ":" + minute); 
-				System.out.println("\t" + database.mv_list.get(i).getMovieRunningTime() + "분");
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 		}
 		
